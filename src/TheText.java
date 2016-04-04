@@ -120,7 +120,9 @@ public class TheText {
 		wordMap.remove(minimumKey);
 		wordMap.remove(secondLastMinimumKey);
 		
-		treeMap.put(theNewStringKey, new MyBinaryTree(theNewStringKey));
+		treeMap.put(theNewStringKey, (treeMap.get(minimumKey)).merge(treeMap.get(secondLastMinimumKey), theNewStringKey));
+		
+		//treeMap.binaryTreeInArray.add
 		
 		//System.out.println(minimumKey + secondLastMinimumKey);
 		
@@ -129,80 +131,4 @@ public class TheText {
 	}
 		return null;	
 	}
-	
-	/*public static MyBinaryTree givingNodesTheirNumber2()
-	{
-		for(String key : wordMap.keySet())
-		{
-			for(String key2 : treeMap.keySet())
-			{
-				if (key == key2)
-				{
-					//give the node the number of the word
-					
-					theNumberOfTheWordMap = .
-				}
-				
-				
-				
-				
-				
-				MyBinaryTree aTree = treeMap.get(key);
-				if  (aTree.getLetter())
-
-			}
-		}
-	}*/
-
-	
-	/*public static MyBinaryTree givingNodesTheirNumber()
-	{
-		while(wordMap.size() > 1)
-		{
-		String minimumKey = null;
-		int minimumValue = 0;
-		
-		String secondLastMinimumKey = null;
-		int secondLastMinimumValue = 0;
-		
-		for(String key : wordMap.keySet())
-		{
-			int theValue = wordMap.get(key);
-			
-			if (minimumKey == null || theValue < minimumValue)
-			{
-				minimumValue = theValue;
-				minimumKey = key;
-			}
-		}
-		
-		for(String key : wordMap.keySet())
-		{
-			int theValue = wordMap.get(key);
-			
-			if ((secondLastMinimumKey == null || theValue < secondLastMinimumValue) && !(minimumKey.equals(key)))
-			{
-				secondLastMinimumValue = theValue;
-				secondLastMinimumKey = key;
-			}
-		}
-		
-		for(String key : treeMap.keySet())
-		{
-			MyBinaryTree aTree = treeMap.get(key);
-			if  (aTree.getLetter())
-			
-		}
-		
-		String theNewStringKey = minimumKey + secondLastMinimumKey;
-		int theValueTwoAdded = minimumValue + secondLastMinimumValue;
-		wordMap.put(theNewStringKey, theValueTwoAdded);
-		
-		System.out.println(minimumKey + secondLastMinimumKey);
-		
-		wordMap.remove(minimumKey);
-		wordMap.remove(secondLastMinimumKey);
-	}
-		return null;	
-	}*/
 }
