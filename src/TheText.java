@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 public class TheText {
 
-	// This Map maps ASCII characars to the no. of instances of that charactar in a given sentence.
+	// This Map maps ASCII characters to the no. of instances of that charactar in a given sentence.
 	public static Map<String, Integer> wordMap = new HashMap<>();
 	public static Map<String, MyBinaryTree> treeMap = new HashMap<>();
 
@@ -64,6 +65,7 @@ public class TheText {
 		{
 			e.printStackTrace();
 		}
+		buildForests();
 		buildBinaryTreeFromMap();
 	}
 	
@@ -117,7 +119,90 @@ public class TheText {
 		
 		wordMap.remove(minimumKey);
 		wordMap.remove(secondLastMinimumKey);
+		
+		treeMap.put(theNewStringKey, new MyBinaryTree(theNewStringKey));
+		
+		//System.out.println(minimumKey + secondLastMinimumKey);
+		
+		treeMap.remove(minimumKey);
+		treeMap.remove(secondLastMinimumKey);
 	}
 		return null;	
 	}
+	
+	/*public static MyBinaryTree givingNodesTheirNumber2()
+	{
+		for(String key : wordMap.keySet())
+		{
+			for(String key2 : treeMap.keySet())
+			{
+				if (key == key2)
+				{
+					//give the node the number of the word
+					
+					theNumberOfTheWordMap = .
+				}
+				
+				
+				
+				
+				
+				MyBinaryTree aTree = treeMap.get(key);
+				if  (aTree.getLetter())
+
+			}
+		}
+	}*/
+
+	
+	/*public static MyBinaryTree givingNodesTheirNumber()
+	{
+		while(wordMap.size() > 1)
+		{
+		String minimumKey = null;
+		int minimumValue = 0;
+		
+		String secondLastMinimumKey = null;
+		int secondLastMinimumValue = 0;
+		
+		for(String key : wordMap.keySet())
+		{
+			int theValue = wordMap.get(key);
+			
+			if (minimumKey == null || theValue < minimumValue)
+			{
+				minimumValue = theValue;
+				minimumKey = key;
+			}
+		}
+		
+		for(String key : wordMap.keySet())
+		{
+			int theValue = wordMap.get(key);
+			
+			if ((secondLastMinimumKey == null || theValue < secondLastMinimumValue) && !(minimumKey.equals(key)))
+			{
+				secondLastMinimumValue = theValue;
+				secondLastMinimumKey = key;
+			}
+		}
+		
+		for(String key : treeMap.keySet())
+		{
+			MyBinaryTree aTree = treeMap.get(key);
+			if  (aTree.getLetter())
+			
+		}
+		
+		String theNewStringKey = minimumKey + secondLastMinimumKey;
+		int theValueTwoAdded = minimumValue + secondLastMinimumValue;
+		wordMap.put(theNewStringKey, theValueTwoAdded);
+		
+		System.out.println(minimumKey + secondLastMinimumKey);
+		
+		wordMap.remove(minimumKey);
+		wordMap.remove(secondLastMinimumKey);
+	}
+		return null;	
+	}*/
 }
