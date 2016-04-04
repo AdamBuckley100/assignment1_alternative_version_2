@@ -68,7 +68,7 @@ public class TheText {
 		buildForests();
 		buildBinaryTreeFromMap();
 	}
-	
+
 	// for each letter....build its very own tree OBJECT.
 	public static void buildForests()
 	{
@@ -78,57 +78,58 @@ public class TheText {
 			treeMap.put(key, new MyBinaryTree(key));
 		}
 	}
-	
+
 	public static MyBinaryTree buildBinaryTreeFromMap()
 	{
 		while(wordMap.size() > 1)
 		{
-		String minimumKey = null;
-		int minimumValue = 0;
-		
-		String secondLastMinimumKey = null;
-		int secondLastMinimumValue = 0;
-		
-		for(String key : wordMap.keySet())
-		{
-			int theValue = wordMap.get(key);
-			
-			if (minimumKey == null || theValue < minimumValue)
+			String minimumKey = null;
+			int minimumValue = 0;
+
+			String secondLastMinimumKey = null;
+			int secondLastMinimumValue = 0;
+
+			for(String key : wordMap.keySet())
 			{
-				minimumValue = theValue;
-				minimumKey = key;
+				int theValue = wordMap.get(key);
+
+				if (minimumKey == null || theValue < minimumValue)
+				{
+					minimumValue = theValue;
+					minimumKey = key;
+				}
 			}
-		}
-		
-		for(String key : wordMap.keySet())
-		{
-			int theValue = wordMap.get(key);
-			
-			if ((secondLastMinimumKey == null || theValue < secondLastMinimumValue) && !(minimumKey.equals(key)))
+
+			for(String key : wordMap.keySet())
 			{
-				secondLastMinimumValue = theValue;
-				secondLastMinimumKey = key;
+				int theValue = wordMap.get(key);
+
+				if ((secondLastMinimumKey == null || theValue < secondLastMinimumValue) && !(minimumKey.equals(key)))
+				{
+					secondLastMinimumValue = theValue;
+					secondLastMinimumKey = key;
+				}
 			}
-		}
-		
-		String theNewStringKey = minimumKey + secondLastMinimumKey;
-		int theValueTwoAdded = minimumValue + secondLastMinimumValue;
-		wordMap.put(theNewStringKey, theValueTwoAdded);
-		
-		System.out.println(minimumKey + secondLastMinimumKey);
-		
-		wordMap.remove(minimumKey);
-		wordMap.remove(secondLastMinimumKey);
-		
-		treeMap.put(theNewStringKey, (treeMap.get(minimumKey)).merge(treeMap.get(secondLastMinimumKey), theNewStringKey));
-		
-		//treeMap.binaryTreeInArray.add
-		
-		//System.out.println(minimumKey + secondLastMinimumKey);
-		
-		treeMap.remove(minimumKey);
-		treeMap.remove(secondLastMinimumKey);
-	}
-		return null;	
+
+			String theNewStringKey = minimumKey + secondLastMinimumKey;
+			int theValueTwoAdded = minimumValue + secondLastMinimumValue;
+			wordMap.put(theNewStringKey, theValueTwoAdded);
+
+			System.out.println(minimumKey + secondLastMinimumKey);
+
+			wordMap.remove(minimumKey);
+			wordMap.remove(secondLastMinimumKey);
+
+			treeMap.put(theNewStringKey, (treeMap.get(minimumKey)).merge(treeMap.get(secondLastMinimumKey), theNewStringKey));
+
+			//treeMap.binaryTreeInArray.add
+
+			//System.out.println(minimumKey + secondLastMinimumKey);
+
+			treeMap.remove(minimumKey);
+			treeMap.remove(secondLastMinimumKey);
+		}	
+		System.out.println(treeMap.values().iterator().next().getArrayList().size());
+		return treeMap.values().iterator().next();
 	}
 }
