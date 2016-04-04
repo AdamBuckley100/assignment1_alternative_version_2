@@ -15,11 +15,12 @@ public class MyBinaryTree
 	public MyBinaryTree(String key)
 	{
 		theLetter = key; 
-		
-		
-		theNumber = word
-		
+		theNumber = TheText.wordMap.get(key);
 	}
 	
+	public 
+	{
+		
+	}
 	
 }

@@ -115,8 +115,6 @@ public class TheText {
 		
 		System.out.println(minimumKey + secondLastMinimumKey);
 		
-		
-		
 		wordMap.remove(minimumKey);
 		wordMap.remove(secondLastMinimumKey);
 	}
