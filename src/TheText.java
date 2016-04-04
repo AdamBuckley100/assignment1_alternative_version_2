@@ -14,6 +14,7 @@ import java.util.Map;
  * and is testing if I can turn the simply first count the instances of
  * letters in a an ASCII word.jj
  *
+ *hkugiuttikyjyjuyhjtui
  */
 
 public class TheText {
