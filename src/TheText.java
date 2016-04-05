@@ -64,7 +64,12 @@ public class TheText {
 			e.printStackTrace();
 		}
 		buildForests();
-		buildBinaryTreeFromMap();
+		MyBinaryTree tree = buildBinaryTreeFromMap();
+		
+		System.out.println("TREE:");
+		tree.printTheArrayList();
+		
+		tree.traverseTheTree(0);
 	}
 
 	// for each letter....build its very own tree OBJECT.
@@ -113,7 +118,7 @@ public class TheText {
 			int theValueTwoAdded = minimumValue + secondLastMinimumValue;
 			wordMap.put(theNewStringKey, theValueTwoAdded);
 
-			System.out.println(minimumKey + secondLastMinimumKey);
+			//System.out.println(minimumKey + secondLastMinimumKey);
 
 			wordMap.remove(minimumKey);
 			wordMap.remove(secondLastMinimumKey);
@@ -122,12 +127,12 @@ public class TheText {
 
 			//treeMap.binaryTreeInArray.add
 
-			//System.out.println(minimumKey + secondLastMinimumKey);
+			System.out.println(minimumKey + secondLastMinimumKey);
 
 			treeMap.remove(minimumKey);
 			treeMap.remove(secondLastMinimumKey);
 		}	
-		System.out.println(treeMap.values().iterator().next().getArrayList().size());
+		//System.out.println(treeMap.values().iterator().next().getArrayList().size());
 		return treeMap.values().iterator().next();
 	}
 }
