@@ -141,16 +141,23 @@ public class MyBinaryTree
 		
 		// not 100% right
 		// math.pow is for the ^ to the power of
-		int fromIndex = Math.pow(2,level)-1;
-		int toIndex = Math.pow(2,level+1)-1;
+		double fromIndex = Math.pow(2,level)-1;
+		double toIndex = Math.pow(2,level+1)-1;
 		
-		if(toIndex <= binaryTreeArrayList.size())
+		//int fromIndexInIntForm = Integer.getValueOf(fromIndex);
+		//int toIndexInIntForm = Interger.getValueOf(toIndex);
+		
+		int fromIndexInIntForm = (int) (fromIndex * 1000000);
+		int toIndexInIntForm = (int) (toIndex * 1000000);
+		// http://stackoverflow.com/questions/24309489/convert-double-into-int
+		
+		if(toIndex <= binaryTreeInArray.size())
 		{
-		return binaryTreeInArray.subList(fromIndex, toIndex);
+		return binaryTreeInArray.subList(binaryTreeInArray.get(fromIndexInIntForm), binaryTreeInArray.get(toIndexInIntForm));
 		}
 		else
 		{
-			int howManyNulls = toIndex - fromIndex;
+			double howManyNulls = toIndex - fromIndex;
 			
 			// using java to make me a list of nulls
 			ArrayList<String> listOfNull = new ArrayList<String>(Collections.nCopies(20, null));
