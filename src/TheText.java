@@ -8,13 +8,10 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * 
  * @author Adam Buckley
  * This is a class that takes in a .txt file (for the moment)
  * and is testing if I can turn the simply first count the instances of
- * letters in a an ASCII word.jjjyjykyulkyukluiluil
- *
- *hkugiuttikyjyjuyhjtui
+ * letters in a an ASCII word.
  */
 
 public class TheText {
