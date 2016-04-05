@@ -28,6 +28,7 @@ public class MyBinaryTree
 		{
 			if (binaryTreeInArray.size() > tree.getArrayList().size())
 			{
+				System.out.println("OR HERE");
 				int numDif = binaryTreeInArray.size() - tree.getArrayList().size();
 				
 				for(int i = 0 ; i < numDif ; i++)
@@ -39,15 +40,15 @@ public class MyBinaryTree
 			}
 			else if (tree.getArrayList().size() > binaryTreeInArray.size())
 			{
+				System.out.println("here");
 				int theNumDif = tree.getArrayList().size() - binaryTreeInArray.size();
 				
-				binaryTreeInArray.addAll(tree.getArrayList());
-
 				for(int i = 0 ; i < theNumDif ; i++)
 				{
 					binaryTreeInArray.add(null);
 				}
 				
+				binaryTreeInArray.addAll(tree.getArrayList());
 			}
 		}
 		binaryTreeInArray.add(0, theNewStringKey);
