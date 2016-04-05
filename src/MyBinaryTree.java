@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -131,6 +132,30 @@ public class MyBinaryTree
 		for(int i =0 ;i < binaryTreeInArray.size() ; i++)
 		{
 			System.out.println(binaryTreeInArray.get(i));
+		}
+	}
+	
+	public ArrayList<String> getNodesOnLevel(int level)
+	{
+		//get the number of nodes that would naturally be on that level
+		
+		// not 100% right
+		// math.pow is for the ^ to the power of
+		int fromIndex = Math.pow(2,level)-1;
+		int toIndex = Math.pow(2,level+1)-1;
+		
+		if(toIndex <= binaryTreeArrayList.size())
+		{
+		return binaryTreeInArray.subList(fromIndex, toIndex);
+		}
+		else
+		{
+			int howManyNulls = toIndex - fromIndex;
+			
+			// using java to make me a list of nulls
+			ArrayList<String> listOfNull = new ArrayList<String>(Collections.nCopies(20, null));
+			System.out.print(listOfNull.get(15));
+			// an unbalanced tree will not happen !!!
 		}
 	}
 }

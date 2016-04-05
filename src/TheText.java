@@ -123,7 +123,7 @@ public class TheText {
 			wordMap.remove(minimumKey);
 			wordMap.remove(secondLastMinimumKey);
 
-			System.out.println("TEST:" + "PASSED IN PARAM IS:" + secondLastMinimumKey);
+			//System.out.println("TEST:" + "PASSED IN PARAM IS:" + secondLastMinimumKey);
 			treeMap.put(theNewStringKey, (treeMap.get(minimumKey)).merge(treeMap.get(secondLastMinimumKey), theNewStringKey));
 
 			//treeMap.binaryTreeInArray.add
