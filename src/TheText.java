@@ -55,7 +55,7 @@ public class TheText {
 						wordMap.put(stringVersion,1);
 					}
 				}
-				System.out.println(wordMap);
+				//System.out.println(wordMap);
 			}
 			fileReader.close();
 		}
@@ -123,11 +123,12 @@ public class TheText {
 			wordMap.remove(minimumKey);
 			wordMap.remove(secondLastMinimumKey);
 
+			System.out.println("TEST:" + "PASSED IN PARAM IS:" + secondLastMinimumKey);
 			treeMap.put(theNewStringKey, (treeMap.get(minimumKey)).merge(treeMap.get(secondLastMinimumKey), theNewStringKey));
 
 			//treeMap.binaryTreeInArray.add
 
-			System.out.println(minimumKey + secondLastMinimumKey);
+			System.out.println("BUILD:" + minimumKey + secondLastMinimumKey);
 
 			treeMap.remove(minimumKey);
 			treeMap.remove(secondLastMinimumKey);
