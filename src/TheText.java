@@ -55,7 +55,7 @@ public class TheText {
 						wordMap.put(stringVersion,1);
 					}
 				}
-				//System.out.println(wordMap);
+				System.out.println(wordMap);
 			}
 			fileReader.close();
 		}

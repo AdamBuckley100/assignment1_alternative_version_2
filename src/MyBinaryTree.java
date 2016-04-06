@@ -135,7 +135,7 @@ public class MyBinaryTree
 		}
 	}
 	
-	public ArrayList<String> getNodesOnLevel(int level)
+	public List getNodesOnLevel(int level)
 	{
 		//get the number of nodes that would naturally be on that level
 		
@@ -143,24 +143,35 @@ public class MyBinaryTree
 		// math.pow is for the ^ to the power of
 		double fromIndex = Math.pow(2,level)-1;
 		double toIndex = Math.pow(2,level+1)-1;
+		// the two lines above explained: lets say the int sent in to this method
+		// was 2, so the nodes on the 2nd level of the three is nods 3-7 in the binaryTreeInArray Arraylist.
+		// (level 2 is level 3 but we are counting the tree top to bottom starting from 0, NOT 1.
 		
 		//int fromIndexInIntForm = Integer.getValueOf(fromIndex);
 		//int toIndexInIntForm = Interger.getValueOf(toIndex);
 		
+		// turn the two double values (node values) gotten above and convert them into int form (directly below):
 		int fromIndexInIntForm = (int) (fromIndex * 1000000);
 		int toIndexInIntForm = (int) (toIndex * 1000000);
-		// http://stackoverflow.com/questions/24309489/convert-double-into-int
+		// Got conversion from: http://stackoverflow.com/questions/24309489/convert-double-into-int
 		
+		// while 
 		if(toIndex <= binaryTreeInArray.size())
 		{
-		return binaryTreeInArray.subList(binaryTreeInArray.get(fromIndexInIntForm), binaryTreeInArray.get(toIndexInIntForm));
+		// sublist of strings?? why not working?
+		return binaryTreeInArray.subList(binaryTreeInArray[fromIndexInIntForm], binaryTreeInArray[toIndexInIntForm]);
 		}
 		else
+		// else it's un balanced: "pad" it with nulls.
 		{
 			double howManyNulls = toIndex - fromIndex;
 			
+			int howManyNullsInIntForm = (int) (fromIndex * 1000000);
+			
 			// using java to make me a list of nulls
-			ArrayList<String> listOfNull = new ArrayList<String>(Collections.nCopies(20, null));
+			// it was ArrayList<String> listOfNull = new ArrayList<String>(Collections.nCopies(20, null));
+			// is below right? ....
+			ArrayList<String> listOfNull = new ArrayList<String>(Collections.nCopies(howManyNullsInIntForm, null));
 			System.out.print(listOfNull.get(15));
 			// an unbalanced tree will not happen !!!
 		}
