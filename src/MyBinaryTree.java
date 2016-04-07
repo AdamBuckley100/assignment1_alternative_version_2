@@ -135,7 +135,7 @@ public class MyBinaryTree
 		}
 	}
 	
-	public List getNodesOnLevel(int level)
+	public List<String> getNodesOnLevel(int level)
 	{
 		//get the number of nodes that would naturally be on that level
 		
@@ -159,7 +159,7 @@ public class MyBinaryTree
 		if(toIndex <= binaryTreeInArray.size())
 		{
 		// sublist of strings?? why not working?
-		return binaryTreeInArray.subList(binaryTreeInArray[fromIndexInIntForm], binaryTreeInArray[toIndexInIntForm]);
+		return binaryTreeInArray.subList(fromIndexInIntForm,toIndexInIntForm);
 		}
 		else
 		// else it's un balanced: "pad" it with nulls.
