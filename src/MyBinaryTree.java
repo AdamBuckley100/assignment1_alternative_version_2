@@ -1,14 +1,17 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class MyBinaryTree
 {
+	// the binaryTreeInArray is the FIRST array, the flawed one, there will be two
 	ArrayList<String> binaryTreeInArray = new ArrayList<String>();
 	public static Map<String, String> huffmanCodeMap = new HashMap<>();
-	
+	static boolean reachEndOfTree = false;
+
 	int traverseCount;
 
 	public MyBinaryTree(String key)
@@ -32,25 +35,25 @@ public class MyBinaryTree
 				System.out.println("OR HERE");
 				// i want larger tree - smaller tree
 				int numDif = binaryTreeInArray.size() - tree.getArrayList().size();
-				
-				for(int i = 0 ; i < numDif ; i++)
+
+				/*	for(int i = 0 ; i < numDif ; i++)
 				{
 					binaryTreeInArray.add(null);
-				}
-				
+				}*/
+
 				binaryTreeInArray.addAll(tree.getArrayList());
 			}
 			else if (tree.getArrayList().size() > binaryTreeInArray.size())
 			{
 				System.out.println("here");
 				int theNumDif = tree.getArrayList().size() - binaryTreeInArray.size();
-				
+
 				binaryTreeInArray.addAll(tree.getArrayList());
-				
-				for(int i = 0 ; i < theNumDif ; i++)
+
+				/*for(int i = 0 ; i < theNumDif ; i++)
 				{
 					binaryTreeInArray.add(null);
-				}
+				}*/
 			}
 		}
 		binaryTreeInArray.add(0, theNewStringKey);
@@ -78,13 +81,13 @@ public class MyBinaryTree
 				if (binaryTreeInArray.get(indexLeft) != null && binaryTreeInArray.get(indexRight) != null)
 				{
 					//its a leaf node! SIFT UP ONE (cus we alredy printed) and then ask if there is a right node or not.
-					
-					
+
+
 					//following is the sift up....
-					
+
 					int siftedUpIndex = ((index-1)/2);
 					askIfThereIsARightNode(siftedUpIndex);
-					
+
 				}
 				else
 				{
@@ -103,18 +106,18 @@ public class MyBinaryTree
 			}
 		}
 	}
-	
+
 	public void askIfThereIsARightNode(int aSiftedUpIndex)
 	{
 		// 2k + 2 is the right child.
 		// indexRight means right child.
 		int indexRight = 2 * aSiftedUpIndex + 2;
-		
+
 		String theLetterOfSiftedUp = binaryTreeInArray.get(aSiftedUpIndex);
-		
+
 		//System.out.println(val);
-		
-		
+
+
 		// if the letter at index's place in array is not null.
 		// talking about the right child... does the right child exist or not?
 		if (binaryTreeInArray.get(indexRight) != null)
@@ -126,7 +129,7 @@ public class MyBinaryTree
 		{
 		}
 	}
-	
+
 	public void printTheArrayList()
 	{
 		for(int i =0 ;i < binaryTreeInArray.size() ; i++)
@@ -134,68 +137,35 @@ public class MyBinaryTree
 			System.out.println(binaryTreeInArray.get(i));
 		}
 	}
-	
+
 	public ArrayList<String> getNodesOnLevel(int level)
 	{
-		double fromIndex = Math.pow(2,level)-1;
-		double toIndex = Math.pow(2,level+1)-1;
+		int fromIndex = (int) (Math.pow(2,level)-1);
+		int toIndex = (int) (Math.pow(2,level+1)-1);
 		// the two lines above explained: lets say the int sent in to this method
 		// was 2, so the nodes on the 2nd level of the three is nods 3-7 in the binaryTreeInArray Arraylist.
 		// (level 2 is level 3 but we are counting the tree top to bottom starting from 0, NOT 1.
-		
+
 		// turn the two double values (node values) gotten above and convert them into int form (directly below):
-		int fromIndexInIntForm = (int) (fromIndex * 1000000);
-		int toIndexInIntForm = (int) (toIndex * 1000000);
+		//nt fromIndexInIntForm = (int) (fromIndex * 1000000);
+		//int toIndexInIntForm = (int) (toIndex * 1000000);
 		// Got conversion from: http://stackoverflow.com/questions/24309489/convert-double-into-int
-		
-		if(toIndex <= binaryTreeInArray.size())
+
+		if (toIndex <= binaryTreeInArray.size())
 		{
-		// sublist of strings?? why not working?
-		// i assume fromindex is inclusive but toindex is exclusive
-		return (ArrayList<String>) binaryTreeInArray.subList(fromIndexInIntForm,toIndexInIntForm);
+			List<String> listToReturn = binaryTreeInArray.subList(fromIndex,toIndex);
+			return (ArrayList<String>) listToReturn;
 		}
-		else
+		else // this level doesnt exist
 		{
-			ArrayList<String> tempArray = new ArrayList<String>();
-			
-			if (binaryTreeInArray.subList(fromIndexInIntForm,toIndexInIntForm) != null)
-			{
-				for(int i = fromIndexInIntForm ; i < toIndexInIntForm ; i++)
-				{
-					if (binaryTreeInArray.get(i) != null)
-					{
-						tempArray.add(binaryTreeInArray.get(i));
-					}
-				}
-			}
-			
-			int tempArraySize = tempArray.size();
-			
-			//double howManyNulls = toIndex - fromIndex;
-			double numOfNodesOnLevel = toIndex - fromIndex;
-			
-			int numOfNodesOnLevelIntForm = (int) (numOfNodesOnLevel * 1000000);
-			
-			int howManyNullsWillBeNeeded = numOfNodesOnLevelIntForm - tempArraySize;
-			
-			// using java to make me a list of nulls
-			// it was ArrayList<String> listOfNull = new ArrayList<String>(Collections.nCopies(20, null));
-			// is below right? ....
-			ArrayList<String> listOfNull = new ArrayList<String>(Collections.nCopies(howManyNullsWillBeNeeded, null));
-			
-			ArrayList<String> addTheTwoArrayListsTogether = new ArrayList<String>();
-			
-			if (tempArray != null)
-			{
-				// will these 2 addalls work?
-			addTheTwoArrayListsTogether.addAll(listOfNull);
-			addTheTwoArrayListsTogether.addAll(tempArray);
-			}
-			
-			return (ArrayList<String>) addTheTwoArrayListsTogether;
-			//System.out.print(listOfNull.get(howManyNullsInIntForm));
-			//WAS: System.out.print(listOfNull.get(15));
-			// an unbalanced tree will not happen ?
+			int theNumOfNodesOnNonExistingLevel = toIndex - fromIndex;
+
+			// so i need "theNumOfNodesOnNonExistingLevel" number of nulls to be returned now...
+
+			// ASK: does the below line work (is valid)?
+			ArrayList<String> listOfNull = new ArrayList<String>(Collections.nCopies(theNumOfNodesOnNonExistingLevel, null));
+
+			return listOfNull;
 		}
 	}
 }

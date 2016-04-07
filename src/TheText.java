@@ -19,6 +19,8 @@ public class TheText {
 	// This Map maps ASCII characters to the no. of instances of that charactar in a given sentence.
 	public static Map<String, Integer> wordMap = new HashMap<>();
 	public static Map<String, MyBinaryTree> treeMap = new HashMap<>();
+	MyBinaryTree tree;
+
 
 	public static void main(String[] args) {
 
@@ -65,10 +67,10 @@ public class TheText {
 		}
 		buildForests();
 		MyBinaryTree tree = buildBinaryTreeFromMap();
-		
+
 		System.out.println("TREE:");
 		tree.printTheArrayList();
-		
+
 		tree.traverseTheTree(0);
 	}
 
@@ -135,5 +137,22 @@ public class TheText {
 		}	
 		//System.out.println(treeMap.values().iterator().next().getArrayList().size());
 		return treeMap.values().iterator().next();
+	}
+
+	public int getHeightOfTreeFromFirstArrayList()
+	{
+		// I need to find the height of the tree....
+
+		int height = 0;
+
+		while (MyBinaryTree.reachEndOfTree == false)
+		{
+			int currentLevel = 0; // starting at 0 (root node)
+			tree.getNodesOnLevel(currentLevel);
+			height++;
+		}
+
+		int realHeight = height+1;
+		return realHeight;
 	}
 }
