@@ -173,7 +173,7 @@ public class TheText {
 		while (MyBinaryTree.reachEndOfTree == false)
 		{
 			int currentLevel = 0; // starting at 0 (root node)
-			tree.getNodesOnLevel(currentLevel);
+			tree.getLettersOnLevel(currentLevel);
 			height++;
 		}
 

@@ -14,9 +14,24 @@ public class MyBinaryTree
 
 	int traverseCount;
 
+	// CONSTRUCTOR USED IN MERGE METHOD.
 	public MyBinaryTree(String key)
 	{
 		binaryTreeInArray.add(key);
+	}
+
+
+	// returns true if it IS all nulls, returns false if it is *NOT* all nulls.
+	public boolean isAllNulls(ArrayList<String> list)
+	{
+		for(int i = 0 ; i < list.size() ; i++)
+		{
+			if (list.get(i) != null)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 
@@ -24,88 +39,46 @@ public class MyBinaryTree
 	// which takes on the LETTERING of the two initial nodes COMBINED (string concatenated).
 	public MyBinaryTree merge(MyBinaryTree tree, String theNewStringKey)
 	{
-		boolean dualNullGivenBack = false;
 		// the array which will eventually have the FINISHED correctly placing of the two nodes given to this method
 		ArrayList<String> theArrayOfTheTwoCombinedNodes = new ArrayList<String>();
 
 		// put into place 0 the LETTERING of the combined two nodes, to start with.
 		theArrayOfTheTwoCombinedNodes.add(theNewStringKey);
-		
-		
-		
+
+		boolean dualNullGivenBack = false;
+		int i = 0;
 		do
 		{
-			int i = 0;
-			
-			ArrayList levelXLettersArrayTempThis = getLettersOnLevel(i);
-			// is the add all below valid?
-			theArrayOfTheTwoCombinedNodes.addAll(levelXLettersArrayTempThis);
 
-			ArrayList levelXLettersArrayTempParamTree = tree.getLettersOnLevel(i);
+			ArrayList<String> levelXLettersArrayTempThis = getLettersOnLevel(i);
 			// is the add all below valid?
-			theArrayOfTheTwoCombinedNodes.addAll(levelXLettersArrayTempParamTree);	
-			
+			//ArrayList<String> checkWhatLettersThisTreeHas = theArrayOfTheTwoCombinedNodes.addAll(levelXLettersArrayTempThis);
+
+			ArrayList<String> levelXLettersArrayTempParamTree = tree.getLettersOnLevel(i);
+			// is the add all below valid?
+			//theArrayOfTheTwoCombinedNodes.addAll(levelXLettersArrayTempParamTree);	
+
+			if ((isAllNulls(levelXLettersArrayTempThis) == true) && (isAllNulls(levelXLettersArrayTempParamTree) == true))
+			{
+				System.out.println("hi");
+				// cus if both "soon to be combined" subtrees BOTH have ALL nulls returned when the letterings/nodes at a certain
+				// level are checked.... then I can be SURE that the level we are CURRENTLY looking at is a level that does
+				// not exist and i should not add this BOTH subtrees all nulls to the final and single arraylist.
+				dualNullGivenBack = true;
+			}
+			else
+			{
+				theArrayOfTheTwoCombinedNodes.addAll(levelXLettersArrayTempThis);
+				theArrayOfTheTwoCombinedNodes.addAll(levelXLettersArrayTempParamTree);
+			}
+			// i++ because the next level must be checked.
 			i++;
 		}
 		while (dualNullGivenBack == false);
 		
+		this.binaryTreeInArray = theArrayOfTheTwoCombinedNodes;
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		while (dualNullGivenBack == false)
-		{
-			ArrayList levelZeroLettersArrayTempThis = getLettersOnLevel(0);
-			// is the add all below valid?
-			theArrayOfTheTwoCombinedNodes.addAll(levelZeroLettersArrayTempThis);
-
-			ArrayList levelZeroLettersArrayTempParamTree = getLettersOnLevel(0);
-			// is the add all below valid?
-			theArrayOfTheTwoCombinedNodes.addAll(levelZeroLettersArrayTempParamTree);	
-		}
-		
-		
-		
-		
-		
-		dualNullGivenBack == false
-				
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-		// now look at the two MyBinaryTree trees FROM LEFT TO RIGHT (TOP TO BOTTOM) and add to the array directly above
-		// the lettering of the nodes on each level (LOOKING AT BOTH TREES SIDE BY SIDE)
-		while(dualNullGivenBack == false)
-		{
-			for(int i = 0 ; i <= ; i++)
-			{
-				ArrayList levelZeroLettersArrayTempThis = getLettersOnLevel(0);
-				// is the add all below valid?
-				theArrayOfTheTwoCombinedNodes.addAll(levelZeroLettersArrayTempThis);
-
-				ArrayList levelZeroLettersArrayTempParamTree = getLettersOnLevel(0);
-				// is the add all below valid?
-				theArrayOfTheTwoCombinedNodes.addAll(levelZeroLettersArrayTempParamTree);
-			}
-		}
-
+		return this;
 	}
 
 	public ArrayList<String> getArrayList()
@@ -201,8 +174,8 @@ public class MyBinaryTree
 
 		if (toIndex <= binaryTreeInArray.size())
 		{
-			List<String> listToReturn = binaryTreeInArray.subList(fromIndex,toIndex);
-			return (ArrayList<String>) listToReturn;
+			ArrayList<String> listToReturn = new ArrayList<String>(binaryTreeInArray.subList(fromIndex,toIndex));
+			return listToReturn;
 		}
 		else // this level doesnt exist
 		{
