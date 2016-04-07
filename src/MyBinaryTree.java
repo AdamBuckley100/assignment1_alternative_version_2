@@ -30,6 +30,65 @@ public class MyBinaryTree
 
 		// put into place 0 the LETTERING of the combined two nodes, to start with.
 		theArrayOfTheTwoCombinedNodes.add(theNewStringKey);
+		
+		
+		
+		do
+		{
+			int i = 0;
+			
+			ArrayList levelXLettersArrayTempThis = getLettersOnLevel(i);
+			// is the add all below valid?
+			theArrayOfTheTwoCombinedNodes.addAll(levelXLettersArrayTempThis);
+
+			ArrayList levelXLettersArrayTempParamTree = tree.getLettersOnLevel(i);
+			// is the add all below valid?
+			theArrayOfTheTwoCombinedNodes.addAll(levelXLettersArrayTempParamTree);	
+			
+			i++;
+		}
+		while (dualNullGivenBack == false);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		while (dualNullGivenBack == false)
+		{
+			ArrayList levelZeroLettersArrayTempThis = getLettersOnLevel(0);
+			// is the add all below valid?
+			theArrayOfTheTwoCombinedNodes.addAll(levelZeroLettersArrayTempThis);
+
+			ArrayList levelZeroLettersArrayTempParamTree = getLettersOnLevel(0);
+			// is the add all below valid?
+			theArrayOfTheTwoCombinedNodes.addAll(levelZeroLettersArrayTempParamTree);	
+		}
+		
+		
+		
+		
+		
+		dualNullGivenBack == false
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		// now look at the two MyBinaryTree trees FROM LEFT TO RIGHT (TOP TO BOTTOM) and add to the array directly above
 		// the lettering of the nodes on each level (LOOKING AT BOTH TREES SIDE BY SIDE)
