@@ -135,7 +135,7 @@ public class MyBinaryTree
 		}
 	}
 	
-	public List<String> getNodesOnLevel(int level)
+	public ArrayList<String> getNodesOnLevel(int level)
 	{
 		//get the number of nodes that would naturally be on that level
 		
@@ -159,20 +159,22 @@ public class MyBinaryTree
 		if(toIndex <= binaryTreeInArray.size())
 		{
 		// sublist of strings?? why not working?
-		return binaryTreeInArray.subList(fromIndexInIntForm,toIndexInIntForm);
+		return (ArrayList<String>) binaryTreeInArray.subList(fromIndexInIntForm,toIndexInIntForm);
 		}
 		else
 		// else it's un balanced: "pad" it with nulls.
 		{
 			double howManyNulls = toIndex - fromIndex;
 			
-			int howManyNullsInIntForm = (int) (fromIndex * 1000000);
+			int howManyNullsInIntForm = (int) (howManyNulls * 1000000);
 			
 			// using java to make me a list of nulls
 			// it was ArrayList<String> listOfNull = new ArrayList<String>(Collections.nCopies(20, null));
 			// is below right? ....
 			ArrayList<String> listOfNull = new ArrayList<String>(Collections.nCopies(howManyNullsInIntForm, null));
-			System.out.print(listOfNull.get(15));
+			return (ArrayList<String>) listOfNull;
+			//System.out.print(listOfNull.get(howManyNullsInIntForm));
+			//WAS: System.out.print(listOfNull.get(15));
 			// an unbalanced tree will not happen !!!
 		}
 	}
