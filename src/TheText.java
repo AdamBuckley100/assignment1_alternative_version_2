@@ -86,46 +86,71 @@ public class TheText {
 
 	public static MyBinaryTree buildBinaryTreeFromMap()
 	{
+		// if will always be > 1...
 		while(wordMap.size() > 1)
 		{
 			String minimumKey = null;
-			int minimumValue = 0;
+			int ValueOfMinimumKey = 0;
 
 			String secondLastMinimumKey = null;
 			int secondLastMinimumValue = 0;
 
+			// the keys in the wordMap is the STRING (LETTER i.e a)
 			for(String key : wordMap.keySet())
 			{
+				// below: get the value of key we are currently looking at
+				// (remember value: is just the NUMBER OF TIMES THAT LETTER IS
+				// IN THE WORD/PHRASE
 				int theValue = wordMap.get(key);
 
-				if (minimumKey == null || theValue < minimumValue)
+				// if min key is null (which it is first time round) OR
+				// theValue of the key we are currently looking at is LESS than
+				// what the value of the minimum key is now......
+				if (minimumKey == null || theValue < ValueOfMinimumKey)
 				{
-					minimumValue = theValue;
+					// below: minimum key is appropriately assigned.
+					ValueOfMinimumKey = theValue;
 					minimumKey = key;
 				}
 			}
 
+			// going through all the keys (letters) again...
 			for(String key : wordMap.keySet())
 			{
+				// get the value of the key (letter) which we are currently looking at
 				int theValue = wordMap.get(key);
 
+				// if second late min key is null (which it is first time round) OR
+				// theValue of the key we are currently looking at is LESS than
+				// what the value of the second last minimum key is now...... 
+				// AND the key we are currently looking at IS NOT what the minimum key IS then....
 				if ((secondLastMinimumKey == null || theValue < secondLastMinimumValue) && !(minimumKey.equals(key)))
 				{
+					// below: second last minimum key is appropriately assigned.
 					secondLastMinimumValue = theValue;
 					secondLastMinimumKey = key;
 				}
 			}
 
+			// the new LETTER COMBO is the LETTER of the minimum key and the LETTER of the second late minimum key
+			// string concatenated.
 			String theNewStringKey = minimumKey + secondLastMinimumKey;
-			int theValueTwoAdded = minimumValue + secondLastMinimumValue;
+			int theValueTwoAdded = ValueOfMinimumKey + secondLastMinimumValue;
+			//  the brand new combined node added to the WORDMAP map.
 			wordMap.put(theNewStringKey, theValueTwoAdded);
 
 			//System.out.println(minimumKey + secondLastMinimumKey);
 
+			// the old children of the NEWLY ADDED node is being deleted from WORDMAP. SO WE DONT DEAL WITH THEM AGAIN.
 			wordMap.remove(minimumKey);
 			wordMap.remove(secondLastMinimumKey);
 
 			//System.out.println("TEST:" + "PASSED IN PARAM IS:" + secondLastMinimumKey);
+			
+			//treemap maps a LETTER (string) to its ACTUAl MyBinaryTree OBJECT.
+			//eventually treeMap will have just ONE thing in it (string to object mapping).
+			//so put into treeMap the combined LETTERS (single string variable) and the ACTUAL MyBinaryTree OBJECT
+			// which IS the two single MyBinaryObjects (min and secondlastmin) together into one single MOTHER NODE.
 			treeMap.put(theNewStringKey, (treeMap.get(minimumKey)).merge(treeMap.get(secondLastMinimumKey), theNewStringKey));
 
 			//treeMap.binaryTreeInArray.add
