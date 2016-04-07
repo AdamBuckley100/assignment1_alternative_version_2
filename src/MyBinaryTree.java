@@ -19,45 +19,34 @@ public class MyBinaryTree
 		binaryTreeInArray.add(key);
 	}
 
-	// this method allows the actual tree to go from many trees (singular.. initially) and changes it into
-	// exactly 1 binary tree
+
+	// This method allows two single MyBinaryTree objects to be combined into ONE COMBINED MyBinaryTree Object,
+	// which takes on the LETTERING of the two initial nodes COMBINED (string concatenated).
 	public MyBinaryTree merge(MyBinaryTree tree, String theNewStringKey)
 	{
-		//binaryTreeInArray.addAll(tree.getArrayList());
-		if (binaryTreeInArray.size() == tree.getArrayList().size())
+		boolean dualNullGivenBack = false;
+		// the array which will eventually have the FINISHED correctly placing of the two nodes given to this method
+		ArrayList<String> theArrayOfTheTwoCombinedNodes = new ArrayList<String>();
+
+		// put into place 0 the LETTERING of the combined two nodes, to start with.
+		theArrayOfTheTwoCombinedNodes.add(theNewStringKey);
+
+		// now look at the two MyBinaryTree trees FROM LEFT TO RIGHT (TOP TO BOTTOM) and add to the array directly above
+		// the lettering of the nodes on each level (LOOKING AT BOTH TREES SIDE BY SIDE)
+		while(dualNullGivenBack == false)
 		{
-			binaryTreeInArray.addAll(tree.getArrayList());
-		}
-		else
-		{
-			if (binaryTreeInArray.size() > tree.getArrayList().size())
+			for(int i = 0 ; i <= ; i++)
 			{
-				System.out.println("OR HERE");
-				// i want larger tree - smaller tree
-				int numDif = binaryTreeInArray.size() - tree.getArrayList().size();
+				ArrayList levelZeroLettersArrayTempThis = getLettersOnLevel(0);
+				// is the add all below valid?
+				theArrayOfTheTwoCombinedNodes.addAll(levelZeroLettersArrayTempThis);
 
-				/*	for(int i = 0 ; i < numDif ; i++)
-				{
-					binaryTreeInArray.add(null);
-				}*/
-
-				binaryTreeInArray.addAll(tree.getArrayList());
-			}
-			else if (tree.getArrayList().size() > binaryTreeInArray.size())
-			{
-				System.out.println("here");
-				int theNumDif = tree.getArrayList().size() - binaryTreeInArray.size();
-
-				binaryTreeInArray.addAll(tree.getArrayList());
-
-				/*for(int i = 0 ; i < theNumDif ; i++)
-				{
-					binaryTreeInArray.add(null);
-				}*/
+				ArrayList levelZeroLettersArrayTempParamTree = getLettersOnLevel(0);
+				// is the add all below valid?
+				theArrayOfTheTwoCombinedNodes.addAll(levelZeroLettersArrayTempParamTree);
 			}
 		}
-		binaryTreeInArray.add(0, theNewStringKey);
-		return this;
+
 	}
 
 	public ArrayList<String> getArrayList()
@@ -138,7 +127,7 @@ public class MyBinaryTree
 		}
 	}
 
-	public ArrayList<String> getNodesOnLevel(int level)
+	public ArrayList<String> getLettersOnLevel(int level)
 	{
 		int fromIndex = (int) (Math.pow(2,level)-1);
 		int toIndex = (int) (Math.pow(2,level+1)-1);
