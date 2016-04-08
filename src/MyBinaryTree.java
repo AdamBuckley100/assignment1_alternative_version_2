@@ -71,7 +71,7 @@ public class MyBinaryTree
 				theArrayOfTheTwoCombinedNodes.addAll(levelXLettersArrayTempThis);
 				theArrayOfTheTwoCombinedNodes.addAll(levelXLettersArrayTempParamTree);
 			}
-			// i++ because the next level must be checked.
+			// i++ because the next level must be checked.ffff
 			i++;
 		}
 		while (dualNullGivenBack == false);
