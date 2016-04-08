@@ -10,8 +10,10 @@ public class MyBinaryTree
 	// the binaryTreeInArray is the FIRST array, the flawed one, there will be two
 	ArrayList<String> binaryTreeInArray = new ArrayList<String>();
 	public static Map<String, String> huffmanCodeMap = new HashMap<>();
-	public static Map<String, String> letterToHuffmanCodeMap = new HashMap<>();
+	//public static Map<String, String> letterToHuffmanCodeMap = new HashMap<>();
 	static boolean reachEndOfTree = false;
+	
+	//String indexHuffmanRunningTotal = "";
 
 	int traverseCount;
 
@@ -90,21 +92,46 @@ public class MyBinaryTree
 	// Traverse the tree to produce a table of characters with their Huffman code.
 	// this is a preorder taverse... this method is fully recursive and ends completely the first time
 	// the first if OR the second if is NOT fulfilled.
-	public void traverseTheTree(int index)
+	public void traverseTheTree(int index, String prefix)
 	{
 		if (index < binaryTreeInArray.size())
 		{
 			String val = binaryTreeInArray.get(index);
 			if (val != null)
 			{
-				System.out.println(val);	
+				if (binaryTreeInArray.get(index).length() == 1)
+				{
+					// ok so it's defintly a single letter, time to put it into the map
+					System.out.println(val + " " +prefix);
+					huffmanCodeMap.put(binaryTreeInArray.get(index), prefix);
 
-				int indexLeft = 2 * index + 1;
-				int indexRight = 2 * index + 2;
+					//huffmanCodeMap.put(binaryTreeInArray.get(index), indexHuffmanRunningTotal);
 
-				traverseTheTree(indexLeft);
-				traverseTheTree(indexRight);
+					// reset it...
+					//indexHuffmanRunningTotal = "";
+				}
+				else
+				{
+					System.out.println(val);	
+
+					int indexLeft = 2 * index + 1;
+
+					int indexRight = 2 * index + 2;
+
+					traverseTheTree(indexLeft, prefix + "0");
+					traverseTheTree(indexRight, prefix + "1");
+				}
 			}
+		}
+	}
+	
+	public void printOutTheHuffMap()
+	{
+		System.out.println("PRINT OUT MAP:");
+		for(String key : huffmanCodeMap.keySet())
+		{
+		System.out.println("NEW MAP ENTRY:");
+		System.out.println(key + " " + huffmanCodeMap.get(key));
 		}
 	}
 
@@ -124,7 +151,7 @@ public class MyBinaryTree
 		if (binaryTreeInArray.get(indexRight) != null)
 		{
 			//System.out.println(a);
-			traverseTheTree(indexRight);
+			//traverseTheTree(indexRight);
 		}
 		else
 		{

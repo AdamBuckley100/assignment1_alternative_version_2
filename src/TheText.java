@@ -71,8 +71,9 @@ public class TheText {
 		System.out.println("TREE:");
 		tree.printTheArrayList();
 
-		tree.traverseTheTree(0);
+		tree.traverseTheTree(0, "");
 		
+		tree.printOutTheHuffMap();
 	}
 
 	// for each letter....build its very own tree OBJECT.
