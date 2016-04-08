@@ -71,7 +71,7 @@ public class MyBinaryTree
 				theArrayOfTheTwoCombinedNodes.addAll(levelXLettersArrayTempThis);
 				theArrayOfTheTwoCombinedNodes.addAll(levelXLettersArrayTempParamTree);
 			}
-			// i++ because the next level must be checked.ffffsss
+			// i++ because the next level must be checked.
 			i++;
 		}
 		while (dualNullGivenBack == false);
@@ -87,6 +87,8 @@ public class MyBinaryTree
 	}
 
 	// Traverse the tree to produce a table of characters with their Huffman code.
+	// this is a preorder taverse... this method is fully recursive and ends completely the first time
+	// the first if OR the second if is NOT fulfilled.
 	public void traverseTheTree(int index)
 	{
 		if (index < binaryTreeInArray.size())
@@ -94,34 +96,11 @@ public class MyBinaryTree
 			String val = binaryTreeInArray.get(index);
 			if (val != null)
 			{
-				//System.out.println(val);	
+				System.out.println(val);	
 
 				int indexLeft = 2 * index + 1;
 				int indexRight = 2 * index + 2;
 
-				if (binaryTreeInArray.get(indexLeft) != null && binaryTreeInArray.get(indexRight) != null)
-				{
-					//its a leaf node! SIFT UP ONE (cus we alredy printed) and then ask if there is a right node or not.
-
-
-					//following is the sift up....
-
-					int siftedUpIndex = ((index-1)/2);
-					askIfThereIsARightNode(siftedUpIndex);
-
-				}
-				else
-				{
-					// if the letter at index's place in arry is not null.
-					if (binaryTreeInArray.get(indexLeft) != null)
-					{
-						traverseTheTree(indexLeft);
-					}
-					else
-					{
-						traverseTheTree(indexRight);
-					}
-				}
 				traverseTheTree(indexLeft);
 				traverseTheTree(indexRight);
 			}

@@ -72,6 +72,7 @@ public class TheText {
 		tree.printTheArrayList();
 
 		tree.traverseTheTree(0);
+		
 	}
 
 	// for each letter....build its very own tree OBJECT.
