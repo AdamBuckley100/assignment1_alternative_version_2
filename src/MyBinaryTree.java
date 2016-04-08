@@ -134,6 +134,12 @@ public class MyBinaryTree
 		System.out.println(key + " " + huffmanCodeMap.get(key));
 		}
 	}
+	
+	// uncompression - unhuffing - decompression
+	public void unhuffingDecompressionProgram()
+	{
+		
+	}
 
 	public void askIfThereIsARightNode(int aSiftedUpIndex)
 	{

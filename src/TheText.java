@@ -20,6 +20,7 @@ public class TheText {
 	public static Map<String, Integer> wordMap = new HashMap<>();
 	public static Map<String, MyBinaryTree> treeMap = new HashMap<>();
 	MyBinaryTree tree;
+	public static String theWord;
 
 
 	public static void main(String[] args) {
@@ -34,7 +35,7 @@ public class TheText {
 
 			// while there is still more characters in this line to be read and processed......
 			while ((line = bufferedReader.readLine()) != null) {
-
+				theWord = line;
 				for (int i = 0 ; i < line.length() ; i++)
 				{
 					// Derive the string version of the letter.
