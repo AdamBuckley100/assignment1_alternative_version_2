@@ -10,6 +10,7 @@ public class MyBinaryTree
 	// the binaryTreeInArray is the FIRST array, the flawed one, there will be two
 	ArrayList<String> binaryTreeInArray = new ArrayList<String>();
 	public static Map<String, String> huffmanCodeMap = new HashMap<>();
+	public static Map<String, String> letterToHuffmanCodeMap = new HashMap<>();
 	static boolean reachEndOfTree = false;
 
 	int traverseCount;
