@@ -32,7 +32,7 @@ public class TheText {
 
 			String line;
 
-			// while there is still more characters in this line to be read and processed...
+			// while there is still more characters in this line to be read and processed......
 			while ((line = bufferedReader.readLine()) != null) {
 
 				for (int i = 0 ; i < line.length() ; i++)
