@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * @author Adam Buckley
- * This is a class that takes in a .txt file (for the moment)
+ * This is a class that takes in a .txt file (for the moment)s
  * and is ftesting if I can turn the simply first count the instances of
  * letters in a an ASCII word.
  */
