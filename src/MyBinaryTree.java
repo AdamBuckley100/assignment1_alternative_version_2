@@ -4,12 +4,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.FileNotFoundException;
 
 public class MyBinaryTree
 {
@@ -19,6 +16,7 @@ public class MyBinaryTree
 	//public static Map<String, String> letterToHuffmanCodeMap = new HashMap<>();
 	static boolean reachEndOfTree = false;
 	String MyWordInHuffmanCodeForm;
+	String myArrayListInString =  "";
 
 	//String indexHuffmanRunningTotal = "";
 
@@ -234,17 +232,36 @@ public class MyBinaryTree
 		}
 	}
 
-	public void CompressItIntoFile()
+	public void CompressItIntoFile(ArrayList<String> binaryTreeInArray)
 	{
+		//ArrayList<String> myHeader = binaryTreeInArray;
+		for(int i = 0 ; i < binaryTreeInArray.size() ; i++)
+		{
+			//MyWordInHuffmanCodeForm = MyWordInHuffmanCodeForm.concat(huffmanCodeAtThatPoint);
+			String LettingCurrentlyAt = String.valueOf(myArrayListInString.charAt(i));
+			myArrayListInString = myArrayListInString.concat(LettingCurrentlyAt);
+		}
 		try {
 			OutputStream output = new FileOutputStream("compressed.bin");
 
 			// writing
 			BitOutputStream bitOutput = new BitOutputStream(output);
 
-			// this is the magic number (below)
+			// this is the magic number: put it at the start of the compressed binary text.
 			bitOutput.write(8, 129);
 
+			// this is the array list in String form being used as the header at the front
+			// of the binary text but after the magic number.
+			for(int i = 1 ; i < myArrayListInString.length() ; i++)
+			{
+						// Derive the string version of the letter.
+						Integer intVersionOfCharAt = Integer.valueOf(myArrayListInString.charAt(i));
+
+						bitOutput.write(1,intVersionOfCharAt);
+			} 
+			
+			// FINALLY after the magic no. and the arraylist in String form, the ACTUAL binary version of the word
+			// is actually compressed.
 			for(int i = 1 ; i < MyWordInHuffmanCodeForm.length() ; i++)
 			{
 						// Derive the string version of the letter.

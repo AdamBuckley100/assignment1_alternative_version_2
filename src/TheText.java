@@ -78,7 +78,7 @@ public class TheText {
 		
 		System.out.print("START!" + tree.MyWordInHuffmanCodeForm + "END!");
 		
-		tree.CompressItIntoFile();
+		tree.CompressItIntoFile(tree.binaryTreeInArray);
 		tree.DecompressItOutOfFile();
 	}
 
