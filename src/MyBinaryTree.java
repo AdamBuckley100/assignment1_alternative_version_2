@@ -12,6 +12,7 @@ public class MyBinaryTree
 	public static Map<String, String> huffmanCodeMap = new HashMap<>();
 	//public static Map<String, String> letterToHuffmanCodeMap = new HashMap<>();
 	static boolean reachEndOfTree = false;
+	String MyWordInHuffmanCodeForm;
 	
 	//String indexHuffmanRunningTotal = "";
 
@@ -138,7 +139,7 @@ public class MyBinaryTree
 	// uncompression - unhuffing - decompression
 	public void unhuffingDecompressionProgram()
 	{
-		
+	
 	}
 
 	public void askIfThereIsARightNode(int aSiftedUpIndex)
@@ -200,6 +201,26 @@ public class MyBinaryTree
 			ArrayList<String> listOfNull = new ArrayList<String>(Collections.nCopies(theNumOfNodesOnNonExistingLevel, null));
 
 			return listOfNull;
+		}
+	}
+
+
+	public void MakeStringMyHuffmanCode()
+	{	
+		// the keys in the wordMap is the STRING (LETTER i.e a)
+		for(String key : huffmanCodeMap.keySet())
+		{
+			// below: get the value of key we are currently looking at
+			// (remember value: is just the NUMBER OF TIMES THAT LETTER IS
+			// IN THE WORD/PHRASE
+			
+			String huffmanCodeAtThatPoint = huffmanCodeMap.get(key);
+
+			// if min key is null (which it is first time round) OR
+			// theValue of the key we are currently looking at is LESS than
+			// what the value of the minimum key is now......
+
+			MyWordInHuffmanCodeForm = MyWordInHuffmanCodeForm.concat(huffmanCodeAtThatPoint);
 		}
 	}
 }

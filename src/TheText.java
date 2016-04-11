@@ -22,7 +22,6 @@ public class TheText {
 	MyBinaryTree tree;
 	public static String theWord;
 
-
 	public static void main(String[] args) {
 
 		try {
@@ -75,6 +74,8 @@ public class TheText {
 		tree.traverseTheTree(0, "");
 		
 		tree.printOutTheHuffMap();
+		
+		tree.MakeStringMyHuffmanCode();
 	}
 
 	// for each letter....build its very own tree OBJECT.
@@ -182,5 +183,10 @@ public class TheText {
 
 		int realHeight = height+1;
 		return realHeight;
+	}
+	
+	public void compressTheBinaryOfTheWord(String theBinaryOfTheWord)
+	{
+		
 	}
 }
