@@ -68,7 +68,6 @@ public class TheText {
 		buildForests();
 		MyBinaryTree tree = buildBinaryTreeFromMap();
 
-		System.out.println("TREE:");
 		tree.printTheArrayList();
 
 		tree.traverseTheTree(0, "");
@@ -76,6 +75,11 @@ public class TheText {
 		tree.printOutTheHuffMap();
 		
 		tree.MakeStringMyHuffmanCode();
+		
+		System.out.print("START!" + tree.MyWordInHuffmanCodeForm + "END!");
+		
+		tree.CompressItIntoFile();
+		tree.DecompressItOutOfFile();
 	}
 
 	// for each letter....build its very own tree OBJECT.

@@ -1,9 +1,15 @@
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.FileNotFoundException;
 
 public class MyBinaryTree
 {
@@ -13,7 +19,7 @@ public class MyBinaryTree
 	//public static Map<String, String> letterToHuffmanCodeMap = new HashMap<>();
 	static boolean reachEndOfTree = false;
 	String MyWordInHuffmanCodeForm;
-	
+
 	//String indexHuffmanRunningTotal = "";
 
 	int traverseCount;
@@ -79,9 +85,9 @@ public class MyBinaryTree
 			i++;
 		}
 		while (dualNullGivenBack == false);
-		
+
 		this.binaryTreeInArray = theArrayOfTheTwoCombinedNodes;
-		
+
 		return this;
 	}
 
@@ -125,21 +131,21 @@ public class MyBinaryTree
 			}
 		}
 	}
-	
+
 	public void printOutTheHuffMap()
 	{
 		System.out.println("PRINT OUT MAP:");
 		for(String key : huffmanCodeMap.keySet())
 		{
-		System.out.println("NEW MAP ENTRY:");
-		System.out.println(key + " " + huffmanCodeMap.get(key));
+			System.out.println("NEW MAP ENTRY:");
+			System.out.println(key + " " + huffmanCodeMap.get(key));
 		}
 	}
-	
+
 	// uncompression - unhuffing - decompression
 	public void unhuffingDecompressionProgram()
 	{
-	
+
 	}
 
 	public void askIfThereIsARightNode(int aSiftedUpIndex)
@@ -207,20 +213,72 @@ public class MyBinaryTree
 
 	public void MakeStringMyHuffmanCode()
 	{	
+		MyWordInHuffmanCodeForm = "";
+		//MyWordInHuffmanCodeForm = 
 		// the keys in the wordMap is the STRING (LETTER i.e a)
 		for(String key : huffmanCodeMap.keySet())
 		{
 			// below: get the value of key we are currently looking at
 			// (remember value: is just the NUMBER OF TIMES THAT LETTER IS
 			// IN THE WORD/PHRASE
-			
+
 			String huffmanCodeAtThatPoint = huffmanCodeMap.get(key);
+			System.out.println("TESTTTTTTT + "  + huffmanCodeMap.get(key));
 
 			// if min key is null (which it is first time round) OR
 			// theValue of the key we are currently looking at is LESS than
 			// what the value of the minimum key is now......
 
+			//MyWordInHuffmanCodeForm = MyWordInHuffmanCodeForm.concat(huffmanCodeAtThatPoint);
 			MyWordInHuffmanCodeForm = MyWordInHuffmanCodeForm.concat(huffmanCodeAtThatPoint);
 		}
 	}
+
+	public void CompressItIntoFile()
+	{
+		try {
+			OutputStream output = new FileOutputStream("compressed.bin");
+
+			// writing
+			BitOutputStream bitOutput = new BitOutputStream(output);
+
+			// this is the magic number (below)
+			bitOutput.write(8, 129);
+
+			for(int i = 1 ; i < MyWordInHuffmanCodeForm.length() ; i++)
+			{
+						// Derive the string version of the letter.
+						Integer intVersionOfCharAt = Integer.valueOf(MyWordInHuffmanCodeForm.charAt(i));
+
+						bitOutput.write(1,intVersionOfCharAt);
+			} 
+			
+			output.close();
+			bitOutput.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void DecompressItOutOfFile()
+	{
+		try {
+			InputStream input = new FileInputStream("compressed.bin");
+
+			// getting it out of the file and giving me a word
+			BitInputStream bitInput = new BitInputStream(input);
+
+			int whatsInTheBinFileInIntForm =  bitInput.read(MyWordInHuffmanCodeForm.length());
+
+			System.out.println("DECOMPRESS IS" + whatsInTheBinFileInIntForm);
+			input.close();
+			bitInput.close();
+		} catch (IOException e) {
+
+		}
+	}
+
+	//	public void myVersionOfRead(String path)
+	//{	
+	//}
 }
