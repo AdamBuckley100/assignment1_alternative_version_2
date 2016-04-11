@@ -69,6 +69,7 @@ public class TheText {
 		MyBinaryTree tree = buildBinaryTreeFromMap();
 
 		tree.printTheArrayList();
+		bla();
 
 		tree.traverseTheTree(0, "");
 		
@@ -192,5 +193,12 @@ public class TheText {
 	public void compressTheBinaryOfTheWord(String theBinaryOfTheWord)
 	{
 		
+	}
+	
+	public static void bla()
+	{
+		char c = 'e';
+		int code = (int) c;
+		System.out.println("kkkkkkkkkkkkk" + code);
 	}
 }

@@ -57,7 +57,6 @@ public class MyBinaryTree
 		int i = 0;
 		do
 		{
-
 			ArrayList<String> levelXLettersArrayTempThis = getLettersOnLevel(i);
 			// is the add all below valid?
 			//ArrayList<String> checkWhatLettersThisTreeHas = theArrayOfTheTwoCombinedNodes.addAll(levelXLettersArrayTempThis);
@@ -293,6 +292,11 @@ public class MyBinaryTree
 		} catch (IOException e) {
 
 		}
+	}
+	
+	public void preOrderTraversal(ArrayList<String> binaryTreeInArray)
+	{
+		
 	}
 
 	//	public void myVersionOfRead(String path)
