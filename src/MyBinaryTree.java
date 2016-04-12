@@ -266,23 +266,42 @@ public class MyBinaryTree
 
 			// this is the magic number: put it at the start of the compressed binary text.
 			bitOutput.write(8, 129);
-			
+
 			for(int i = 0 ; i < binaryTreeInArray.size() ; i++)
 			{
 				int leftChild = 2*i+1;
 				int rightChild = 2*i+2;
 				
-				if ((binaryTreeInArray.get(leftChild)) == null && (binaryTreeInArray.get(leftChild)) == null)
+				if ((binaryTreeInArray.get(leftChild)) == null && (binaryTreeInArray.get(rightChild)) == null)
 				{
+
+					
 					// it a leaf node so a 1 (binary) must be written followed by the binary representation of the 
 					// letter at that node location in acII form
-					bitOutput.write(8,1);
+					
+					// write a 1
+					bitOutput.write(1,1);
+					
+					
+					String letterOfTheLeafNode = binaryTreeInArray.get(i);
+					// the below will work BECAUSE
+					char theSingleLetterInCharForm = letterOfTheLeafNode.charAt(0);
+					
+					//char theSingleLetter = char.valueOf(letterOfTheLeafNode);
+					
+					// code now has ascii
+					int code = (int) theSingleLetterInCharForm;
+					
+					bitOutput.write(8,code);
+					
+					System.out.println("kkkkkkkkkkkkk" + code);
 					
 					
 				}
 				else
 				{
-					// its a 0 so just output the 0.
+					bitOutput.write(1,0);
+					// its a 0 so just output the 0 and thats it.
 				}
 			}
 
@@ -300,10 +319,20 @@ public class MyBinaryTree
 			// is actually compressed.
 			for(int i = 1 ; i < MyWordInHuffmanCodeForm.length() ; i++)
 			{
+				char c = MyWordInHuffmanCodeForm.charAt(i);
+				
+				if (c == '1')
+				{
+					bitOutput.write(1,1);
+				}
+				else if (c == '0')
+				{
+					bitOutput.write(1,0);
+				}
 						// Derive the string version of the letter.
-						Integer intVersionOfCharAt = Integer.valueOf(MyWordInHuffmanCodeForm.charAt(i));
+						/*Integer intVersionOfCharAt = Integer.valueOf(MyWordInHuffmanCodeForm.charAt(i));
 
-						bitOutput.write(1,intVersionOfCharAt);
+						bitOutput.write(1,intVersionOfCharAt);*/
 			} 
 			
 			output.close();
