@@ -241,24 +241,24 @@ public class MyBinaryTree
 			myArrayListInString = myArrayListInString.concat(LettingCurrentlyAt);
 		}
 		try {
-			
+
 			for(int i = 0 ; i < binaryTreeInArray.size() ; i++)
 			{
 				int leftChild = 2*i+1;
 				int rightChild = 2*i+2;
-				
+
 				if ((binaryTreeInArray.get(leftChild)) == null && (binaryTreeInArray.get(leftChild)) == null)
 				{
 					// it a leaf node so a 1 (binary) must be written followed by the binary representation of the 
 					// letter at that node location in acII form
-					
+
 				}
 				else
 				{
 					// its a 0 so just output the 0.
 				}
 			}
-				
+
 			OutputStream output = new FileOutputStream("compressed.bin");
 
 			// writing
@@ -271,32 +271,32 @@ public class MyBinaryTree
 			{
 				int leftChild = 2*i+1;
 				int rightChild = 2*i+2;
-				
+
 				if ((binaryTreeInArray.get(leftChild)) == null && (binaryTreeInArray.get(rightChild)) == null)
 				{
 
-					
+
 					// it a leaf node so a 1 (binary) must be written followed by the binary representation of the 
 					// letter at that node location in acII form
-					
+
 					// write a 1
 					bitOutput.write(1,1);
-					
-					
+
+
 					String letterOfTheLeafNode = binaryTreeInArray.get(i);
 					// the below will work BECAUSE
 					char theSingleLetterInCharForm = letterOfTheLeafNode.charAt(0);
-					
+
 					//char theSingleLetter = char.valueOf(letterOfTheLeafNode);
-					
+
 					// code now has ascii
 					int code = (int) theSingleLetterInCharForm;
-					
+
 					bitOutput.write(8,code);
-					
+
 					System.out.println("kkkkkkkkkkkkk" + code);
-					
-					
+
+
 				}
 				else
 				{
@@ -305,22 +305,12 @@ public class MyBinaryTree
 				}
 			}
 
-			// this is the array list in String form being used as the header at the front
-			// of the binary text but after the magic number.
-			/*for(int i = 1 ; i < myArrayListInString.length() ; i++)
-			{
-						// Derive the string version of the letter.
-						Integer intVersionOfCharAt = Integer.valueOf(myArrayListInString.charAt(i));
-
-						bitOutput.write(1,intVersionOfCharAt);
-			} */
-			
 			// FINALLY after the magic no. and the arraylist in String form, the ACTUAL binary version of the word
 			// is actually compressed.
-			for(int i = 1 ; i < MyWordInHuffmanCodeForm.length() ; i++)
+			for(int i = 0 ; i < MyWordInHuffmanCodeForm.length() ; i++)
 			{
 				char c = MyWordInHuffmanCodeForm.charAt(i);
-				
+
 				if (c == '1')
 				{
 					bitOutput.write(1,1);
@@ -329,12 +319,46 @@ public class MyBinaryTree
 				{
 					bitOutput.write(1,0);
 				}
-						// Derive the string version of the letter.
-						/*Integer intVersionOfCharAt = Integer.valueOf(MyWordInHuffmanCodeForm.charAt(i));
+				// Derive the string version of the letter.
+				/*Integer intVersionOfCharAt = Integer.valueOf(MyWordInHuffmanCodeForm.charAt(i));
 
 						bitOutput.write(1,intVersionOfCharAt);*/
 			} 
-			
+
+			//finally its time to get the a header that goes after everything EXCEPT the compressed word and this
+			//header is going to be a LONG variable and this long variable says the NUMBER of actual binary bits
+			//in the compressed binary text which is in binary form
+
+			long theNumberOfBitsInTheCompressedText = MyWordInHuffmanCodeForm.length();
+
+			// now we have the num of bits in the binary compressed text.
+
+			// now change this theNumberOfBitsInTheCompressedText long value to binary form
+			// so i can put it into the final header.
+
+			//change int to long.
+			int theNumberOfBitsInTheCompressedTextinIntForm  = (int) theNumberOfBitsInTheCompressedText;
+
+			bitOutput.write(8,theNumberOfBitsInTheCompressedTextinIntForm);
+
+			for(int i = 0 ; i < MyWordInHuffmanCodeForm.length() ; i++)
+			{
+				char c = MyWordInHuffmanCodeForm.charAt(i);
+
+				if (c == '1')
+				{
+					bitOutput.write(1,1);
+				}
+				else if (c == '0')
+				{
+					bitOutput.write(1,0);
+				}
+				// Derive the string version of the letter.
+				/*Integer intVersionOfCharAt = Integer.valueOf(MyWordInHuffmanCodeForm.charAt(i));
+
+						bitOutput.write(1,intVersionOfCharAt);*/
+			} 
+
 			output.close();
 			bitOutput.close();
 		} catch (IOException e) {
@@ -359,10 +383,10 @@ public class MyBinaryTree
 
 		}
 	}
-	
+
 	public void preOrderTraversal(ArrayList<String> binaryTreeInArray)
 	{
-		
+
 	}
 
 	//	public void myVersionOfRead(String path)
