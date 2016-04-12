@@ -241,6 +241,24 @@ public class MyBinaryTree
 			myArrayListInString = myArrayListInString.concat(LettingCurrentlyAt);
 		}
 		try {
+			
+			for(int i = 0 ; i < binaryTreeInArray.size() ; i++)
+			{
+				int leftChild = 2*i+1;
+				int rightChild = 2*i+2;
+				
+				if ((binaryTreeInArray.get(leftChild)) == null && (binaryTreeInArray.get(leftChild)) == null)
+				{
+					// it a leaf node so a 1 (binary) must be written followed by the binary representation of the 
+					// letter at that node location in acII form
+					
+				}
+				else
+				{
+					// its a 0 so just output the 0.
+				}
+			}
+				
 			OutputStream output = new FileOutputStream("compressed.bin");
 
 			// writing
@@ -248,16 +266,35 @@ public class MyBinaryTree
 
 			// this is the magic number: put it at the start of the compressed binary text.
 			bitOutput.write(8, 129);
+			
+			for(int i = 0 ; i < binaryTreeInArray.size() ; i++)
+			{
+				int leftChild = 2*i+1;
+				int rightChild = 2*i+2;
+				
+				if ((binaryTreeInArray.get(leftChild)) == null && (binaryTreeInArray.get(leftChild)) == null)
+				{
+					// it a leaf node so a 1 (binary) must be written followed by the binary representation of the 
+					// letter at that node location in acII form
+					bitOutput.write(8,1);
+					
+					
+				}
+				else
+				{
+					// its a 0 so just output the 0.
+				}
+			}
 
 			// this is the array list in String form being used as the header at the front
 			// of the binary text but after the magic number.
-			for(int i = 1 ; i < myArrayListInString.length() ; i++)
+			/*for(int i = 1 ; i < myArrayListInString.length() ; i++)
 			{
 						// Derive the string version of the letter.
 						Integer intVersionOfCharAt = Integer.valueOf(myArrayListInString.charAt(i));
 
 						bitOutput.write(1,intVersionOfCharAt);
-			} 
+			} */
 			
 			// FINALLY after the magic no. and the arraylist in String form, the ACTUAL binary version of the word
 			// is actually compressed.
