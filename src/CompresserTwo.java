@@ -10,12 +10,6 @@ public class CompresserTwo {
 		// now this ine change 129 to binary.
 		
 		ArrayList<String> myHeader = BinaryArray;
-		
-		
-		
-		
-		
-		
 	}
 
 }

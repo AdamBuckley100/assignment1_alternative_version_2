@@ -233,38 +233,21 @@ public class MyBinaryTree
 
 	public void CompressItIntoFile(ArrayList<String> binaryTreeInArray)
 	{
-		//ArrayList<String> myHeader = binaryTreeInArray;
 		for(int i = 0 ; i < binaryTreeInArray.size() ; i++)
 		{
-			//MyWordInHuffmanCodeForm = MyWordInHuffmanCodeForm.concat(huffmanCodeAtThatPoint);
 			String LettingCurrentlyAt = String.valueOf(myArrayListInString.charAt(i));
+			
 			myArrayListInString = myArrayListInString.concat(LettingCurrentlyAt);
 		}
-		try {
-
-			for(int i = 0 ; i < binaryTreeInArray.size() ; i++)
-			{
-				int leftChild = 2*i+1;
-				int rightChild = 2*i+2;
-
-				if ((binaryTreeInArray.get(leftChild)) == null && (binaryTreeInArray.get(leftChild)) == null)
-				{
-					// it a leaf node so a 1 (binary) must be written followed by the binary representation of the 
-					// letter at that node location in acII form
-
-				}
-				else
-				{
-					// its a 0 so just output the 0.
-				}
-			}
-
+		
+		try
+		{
 			OutputStream output = new FileOutputStream("compressed.bin");
 
 			// writing
 			BitOutputStream bitOutput = new BitOutputStream(output);
 
-			// this is the magic number: put it at the start of the compressed binary text.
+			// this is the magic number 129: put it at the start of the compressed binary text.
 			bitOutput.write(8, 129);
 
 			for(int i = 0 ; i < binaryTreeInArray.size() ; i++)
@@ -274,29 +257,22 @@ public class MyBinaryTree
 
 				if ((binaryTreeInArray.get(leftChild)) == null && (binaryTreeInArray.get(rightChild)) == null)
 				{
-
-
 					// it a leaf node so a 1 (binary) must be written followed by the binary representation of the 
-					// letter at that node location in acII form
+					// letter at that node location in ASCII form.
 
 					// write a 1
 					bitOutput.write(1,1);
 
-
 					String letterOfTheLeafNode = binaryTreeInArray.get(i);
-					// the below will work BECAUSE
+					// the below will work BECAUSE its just a SINGLE character
 					char theSingleLetterInCharForm = letterOfTheLeafNode.charAt(0);
 
-					//char theSingleLetter = char.valueOf(letterOfTheLeafNode);
+					// code now has ascii. because the line below give me the ASCII version of the single letter.
+					int theLetterInAscii = (int) theSingleLetterInCharForm;
 
-					// code now has ascii
-					int code = (int) theSingleLetterInCharForm;
+					bitOutput.write(8,theLetterInAscii);
 
-					bitOutput.write(8,code);
-
-					System.out.println("kkkkkkkkkkkkk" + code);
-
-
+					System.out.println("kkkkkkkkkkkkk" + theLetterInAscii);
 				}
 				else
 				{
@@ -313,33 +289,34 @@ public class MyBinaryTree
 
 				if (c == '1')
 				{
+					// if its a 1, write 1.
 					bitOutput.write(1,1);
 				}
 				else if (c == '0')
 				{
+					// if it's a 0, write 0.
 					bitOutput.write(1,0);
 				}
-				// Derive the string version of the letter.
-				/*Integer intVersionOfCharAt = Integer.valueOf(MyWordInHuffmanCodeForm.charAt(i));
-
-						bitOutput.write(1,intVersionOfCharAt);*/
 			} 
 
 			//finally its time to get the a header that goes after everything EXCEPT the compressed word and this
 			//header is going to be a LONG variable and this long variable says the NUMBER of actual binary bits
-			//in the compressed binary text which is in binary form
+			//in the compressed binary text which is in binary form. (Note: i am using this extra header instead of
+			// using any eof char etc.
 
 			long theNumberOfBitsInTheCompressedText = MyWordInHuffmanCodeForm.length();
 
 			// now we have the num of bits in the binary compressed text.
-
 			// now change this theNumberOfBitsInTheCompressedText long value to binary form
 			// so i can put it into the final header.
 
-			//change int to long.
+			//change long to int. (cast that long to an int).
 			int theNumberOfBitsInTheCompressedTextinIntForm  = (int) theNumberOfBitsInTheCompressedText;
 
 			bitOutput.write(8,theNumberOfBitsInTheCompressedTextinIntForm);
+			
+			//Final task...below I am actually putting the binary version of the actual word to be compressed to
+			// and write it to the file after the header(s).
 
 			for(int i = 0 ; i < MyWordInHuffmanCodeForm.length() ; i++)
 			{
@@ -353,12 +330,8 @@ public class MyBinaryTree
 				{
 					bitOutput.write(1,0);
 				}
-				// Derive the string version of the letter.
-				/*Integer intVersionOfCharAt = Integer.valueOf(MyWordInHuffmanCodeForm.charAt(i));
-
-						bitOutput.write(1,intVersionOfCharAt);*/
 			} 
-
+			
 			output.close();
 			bitOutput.close();
 		} catch (IOException e) {
@@ -368,15 +341,43 @@ public class MyBinaryTree
 
 	public void DecompressItOutOfFile()
 	{
-		try {
+		try
+		{
 			InputStream input = new FileInputStream("compressed.bin");
-
+			
 			// getting it out of the file and giving me a word
+			
 			BitInputStream bitInput = new BitInputStream(input);
-
+			
 			int whatsInTheBinFileInIntForm =  bitInput.read(MyWordInHuffmanCodeForm.length());
-
+			
 			System.out.println("DECOMPRESS IS" + whatsInTheBinFileInIntForm);
+			
+			// so I will assume i'm reading it from LEFT TO RIGHT.
+			
+			//first check for magic number which is 129 (8 bit size)..
+			
+			int thePotentialMagicNumberInIntForm = bitInput.read(8);
+			
+			//convert those binary bits which are in int for to a string
+			
+			String thePotentialMagicNumberInStringForm = Integer.toString(thePotentialMagicNumberInIntForm);
+			
+			if (thePotentialMagicNumberInStringForm == "10000001")
+			{
+				//it is the magic number.... proceed
+			}
+			else
+			{
+				//its not the magic number........ the decompresser program is now declaring "hey i cannot 
+				// decompress this whole binary file because i am not programmed to decompresser it because
+				// the magic number i.d is not what i need.
+			}
+
+			
+			bitInput.read(howManyBits)
+			
+			
 			input.close();
 			bitInput.close();
 		} catch (IOException e) {
