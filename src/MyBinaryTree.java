@@ -249,6 +249,8 @@ public class MyBinaryTree
 
 			// this is the magic number 129: put it at the start of the compressed binary text.
 			bitOutput.write(8, 129);
+			
+			bitOutput.write(8, binaryTreeInArray.size());
 
 			for(int i = 0 ; i < binaryTreeInArray.size() ; i++)
 			{
@@ -257,6 +259,7 @@ public class MyBinaryTree
 
 				if ((binaryTreeInArray.get(leftChild)) == null && (binaryTreeInArray.get(rightChild)) == null)
 				{
+					
 					// it a leaf node so a 1 (binary) must be written followed by the binary representation of the 
 					// letter at that node location in ASCII form.
 
@@ -341,6 +344,13 @@ public class MyBinaryTree
 
 	public void DecompressItOutOfFile()
 	{
+		// ok print out the array before the clear.
+
+		// makes it null.
+		binaryTreeInArray = new ArrayList<String>();
+		
+		// ok print out the array to make sure its cleared.
+		// and print it out again after i make out the binary tree again below...
 		try
 		{
 			InputStream input = new FileInputStream("compressed.bin");
@@ -348,6 +358,67 @@ public class MyBinaryTree
 			// getting it out of the file and giving me a word
 			
 			BitInputStream bitInput = new BitInputStream(input);
+			
+			// how do i get the number of bits in line below... its not just the word to be decompressed
+			// in int form
+			
+			if (bitInput.read() == 129)
+			{
+				//proceed
+				
+				//ok so the first 8 bits IS the magic number... time to take in the actual tree
+				
+				// ok now get the length of the tree in binary form
+				
+				// the below method gives me back int form of the binary 8 bits after the magic number in the 
+				// compressed file.
+				int sizeOfTheBinaryTree = bitInput.read();
+				
+				for(int i = 0 ; i < sizeOfTheBinaryTree ; i++)
+				{
+					// does the read method AUTOMATICALLY read the NEXT bit number. <-- no how would that make sense???
+					int tempSingleBit = bitInput.read(1);
+					
+					if(tempSingleBit == 1)
+					{
+						// ok it's a 
+						
+					}
+					else if(tempSingleBit == 0)
+					{
+						
+					}
+				}
+			}
+			else
+			{
+				// its not the magic number........ the decompresser program is now declaring "hey i cannot 
+				// decompress this whole binary file because i am not programmed to decompresser it because
+				// the magic number i.d is not what i need.
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			int theMagicNumber = 0;
+			
+			do
+			{
+				bitOutput.read(1,1);
+			}
+			while (theMagicNumber != 129);
+			
+			
+			
+			
 			
 			int whatsInTheBinFileInIntForm =  bitInput.read(MyWordInHuffmanCodeForm.length());
 			
@@ -375,7 +446,7 @@ public class MyBinaryTree
 			}
 
 			
-			bitInput.read(howManyBits)
+			//bitInput.read(howManyBits)
 			
 			
 			input.close();
