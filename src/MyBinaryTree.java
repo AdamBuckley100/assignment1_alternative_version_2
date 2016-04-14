@@ -12,7 +12,9 @@ public class MyBinaryTree
 {
 	// the binaryTreeInArray is the FIRST array, the flawed one, there will be two
 	ArrayList<String> binaryTreeInArray = new ArrayList<String>();
+	
 	public static Map<String, String> huffmanCodeMap = new HashMap<>();
+	
 	//public static Map<String, String> letterToHuffmanCodeMap = new HashMap<>();
 	static boolean reachEndOfTree = false;
 	String MyWordInHuffmanCodeForm;
@@ -96,17 +98,21 @@ public class MyBinaryTree
 	// Traverse the tree to produce a table of characters with their Huffman code.
 	// this is a preorder taverse... this method is fully recursive and ends completely the first time
 	// the first if OR the second if is NOT fulfilled.
+
+	// This method is a RECURSIVE method, that is the only reason i have the String input called "prefix"
+	//the reason i have prefix is so that i CAN keep a running total so to speak of my
 	public void traverseTheTree(int index, String prefix)
 	{
 		if (index < binaryTreeInArray.size())
 		{
-			String val = binaryTreeInArray.get(index);
-			if (val != null)
+			String letterValue = binaryTreeInArray.get(index);
+			if (letterValue != null)
 			{
+				// if it has a length one one I.E is it a SINGLE LETTER i.e is it a LEAF node.
 				if (binaryTreeInArray.get(index).length() == 1)
 				{
 					// ok so it's defintly a single letter, time to put it into the map
-					System.out.println(val + " " +prefix);
+					System.out.println(letterValue + " " +prefix);
 					huffmanCodeMap.put(binaryTreeInArray.get(index), prefix);
 
 					//huffmanCodeMap.put(binaryTreeInArray.get(index), indexHuffmanRunningTotal);
@@ -116,10 +122,13 @@ public class MyBinaryTree
 				}
 				else
 				{
-					System.out.println(val);	
+					System.out.println(letterValue);	
 
+					// if we get into this else, it is not a leaf node, the letter is NOT a single character
+					// indexLeft is the non-leaf node's LEFT child.
 					int indexLeft = 2 * index + 1;
 
+					// indexLeft is the non-leaf node's RIGHT child.
 					int indexRight = 2 * index + 2;
 
 					traverseTheTree(indexLeft, prefix + "0");
@@ -134,7 +143,7 @@ public class MyBinaryTree
 		System.out.println("PRINT OUT MAP:");
 		for(String key : huffmanCodeMap.keySet())
 		{
-			System.out.println("NEW MAP ENTRY:");
+			System.out.println("NEW MAP ENTRY ------------------:");
 			System.out.println(key + " " + huffmanCodeMap.get(key));
 		}
 	}
@@ -250,8 +259,10 @@ public class MyBinaryTree
 			// this is the magic number 129: put it at the start of the compressed binary text.
 			bitOutput.write(8, 129);
 
+			// I Am putting the size of the tree as the second header.
 			bitOutput.write(8, binaryTreeInArray.size());
 
+			// Time for the the 3rd header, the third header is the tree itself.
 			// now.. i am putting the tree as another header after the size of the tree (8 bit) header. 
 			// the tree will be in binary form so 1010101010 and the length of text of 101010 binary text of the
 			// tree is specified to me by the size of the binary tree header.
@@ -260,9 +271,9 @@ public class MyBinaryTree
 				int leftChild = 2*i+1;
 				int rightChild = 2*i+2;
 
+				// if its a leaf node..
 				if ((binaryTreeInArray.get(leftChild)) == null && (binaryTreeInArray.get(rightChild)) == null)
 				{
-
 					// it a leaf node so a 1 (binary) must be written followed by the binary representation of the 
 					// letter at that node location in ASCII form.
 
@@ -270,23 +281,50 @@ public class MyBinaryTree
 					bitOutput.write(1,1);
 
 					String letterOfTheLeafNode = binaryTreeInArray.get(i);
-					// the below will work BECAUSE its just a SINGLE character
+					// the below will work BECAUSE its just a SINGLE character (the 0 works).
 					char theSingleLetterInCharForm = letterOfTheLeafNode.charAt(0);
 
-					// code now has ascii. because the line below give me the ASCII version of the single letter.
+					// the line below gives me the ASCII version of the single letter.
 					int theLetterInAscii = (int) theSingleLetterInCharForm;
 
 					bitOutput.write(8,theLetterInAscii);
 
-					System.out.println("kkkkkkkkkkkkk" + theLetterInAscii);
+					System.out.println("kkkkkkkkkkkkk" + theLetterInAscii); // just a print test
 				}
-				else
+				else if ((binaryTreeInArray.get(i)) == null) // if the string at that location IS NULL.
+				{
+					// the node i am currently at (place in the arraylist) IS NULL.
+					
+					// if im at a null node i have to write absolutely nothing and do nothing.
+					// Remember you only added nodes to IDENTIFY if a node has children or not.
+					
+					// MORE EXPLICIT EXPLANATION: ignore that null char and just keep looping....
+					
+				}
+				else //else the node i am at is a NON LEAF NODE and it is a NOT a null node (null nodes are always leaf
+					 // nodes anyway.
 				{
 					bitOutput.write(1,0);
 					// its a 0 so just output the 0 and thats it.
 				}
 			}
 
+			// give the global variable which is string, an empty string....
+			MyWordInHuffmanCodeForm = "";
+			
+			// the keys in the wordMap is the STRING (LETTER i.e a), the value is the huffman code in STRING form.
+			for(String key : huffmanCodeMap.keySet())
+			{
+				// below: get the value of key we are currently looking at
+				// (remember value: is just the huffman code for that variable
+				// i.e my huffman code for the letter O is 10. (in my initial klmok test).
+
+				String huffmanCodeAtThatPointForThatLetter = huffmanCodeMap.get(key);
+				System.out.println("TESTTTTTTT + "  + huffmanCodeMap.get(key)); // just a test print out
+
+				MyWordInHuffmanCodeForm = MyWordInHuffmanCodeForm.concat(huffmanCodeAtThatPointForThatLetter);
+			}
+			
 			// FINALLY after the magic no. and the arraylist in String form, the ACTUAL binary version of the word
 			// is actually compressed.
 			for(int i = 0 ; i < MyWordInHuffmanCodeForm.length() ; i++)
@@ -310,21 +348,21 @@ public class MyBinaryTree
 			//in the compressed binary text which is in binary form. (Note: i am using this extra header instead of
 			// using any eof char etc.
 
-			long theNumberOfBitsInTheCompressedText = MyWordInHuffmanCodeForm.length();
+			//long theNumberOfBitsInTheCompressedText = MyWordInHuffmanCodeForm.length();
 
 			// now we have the num of bits in the binary compressed text.
 			// now change this theNumberOfBitsInTheCompressedText long value to binary form
 			// so i can put it into the final header.
 
 			//change long to int. (cast that long to an int).
-			int theNumberOfBitsInTheCompressedTextinIntForm  = (int) theNumberOfBitsInTheCompressedText;
+			//int theNumberOfBitsInTheCompressedTextinIntForm  = (int) theNumberOfBitsInTheCompressedText;
 
-			bitOutput.write(8,theNumberOfBitsInTheCompressedTextinIntForm);
+		//	bitOutput.write(8,theNumberOfBitsInTheCompressedTextinIntForm);
 
 			//Final task...below I am actually putting the binary version of the actual word to be compressed to
 			// and write it to the file after the header(s).
 
-			for(int i = 0 ; i < MyWordInHuffmanCodeForm.length() ; i++)
+			/*for(int i = 0 ; i < MyWordInHuffmanCodeForm.length() ; i++)
 			{
 				char c = MyWordInHuffmanCodeForm.charAt(i);
 
@@ -336,7 +374,7 @@ public class MyBinaryTree
 				{
 					bitOutput.write(1,0);
 				}
-			} 
+			} */
 
 			output.close();
 			bitOutput.close();

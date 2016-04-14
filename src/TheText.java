@@ -71,6 +71,8 @@ public class TheText {
 		tree.printTheArrayList();
 		bla();
 
+		// in the traverse the tree method is where my huffmanCodeMap is being populated.
+		// i'm inputting 0
 		tree.traverseTheTree(0, "");
 		
 		tree.printOutTheHuffMap();
