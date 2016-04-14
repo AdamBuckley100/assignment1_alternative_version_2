@@ -20,8 +20,6 @@ public class MyBinaryTree
 	String MyWordInHuffmanCodeForm;
 	String myArrayListInString =  "";
 
-	//String indexHuffmanRunningTotal = "";
-
 	int traverseCount;
 
 	// CONSTRUCTOR USED IN MERGE METHOD.
@@ -29,7 +27,6 @@ public class MyBinaryTree
 	{
 		binaryTreeInArray.add(key);
 	}
-
 
 	// returns true if it IS all nulls, returns false if it is *NOT* all nulls.
 	public boolean isAllNulls(ArrayList<String> list)
@@ -43,7 +40,6 @@ public class MyBinaryTree
 		}
 		return true;
 	}
-
 
 	// This method allows two single MyBinaryTree objects to be combined into ONE COMBINED MyBinaryTree Object,
 	// which takes on the LETTERING of the two initial nodes COMBINED (string concatenated).
@@ -248,7 +244,6 @@ public class MyBinaryTree
 
 			myArrayListInString = myArrayListInString.concat(LettingCurrentlyAt);
 		}
-
 		try
 		{
 			OutputStream output = new FileOutputStream("compressed.bin");
@@ -299,7 +294,7 @@ public class MyBinaryTree
 					// Remember you only added nodes to IDENTIFY if a node has children or not.
 
 					// MORE EXPLICIT EXPLANATION: ignore that null char and just keep looping....
-
+					bitOutput.write(1,0);
 				}
 				else //else the node i am at is a NON LEAF NODE and it is a NOT a null node (null nodes are always leaf
 					// nodes anyway.
@@ -394,27 +389,26 @@ public class MyBinaryTree
 					if(tempSingleBit == 1)
 					{
 						// if its 1, its a leaf node so lets extract the letter of that leaf node
-
-						// when read has no param, it automatically reads 8 bits (i.e. 1 byte)....
 						
 						// String.valueOf() gets me the ascii version of the 8 bites (1 byte) after 
 						// the 1 bit has been read, the first 1 bit encountered is not counted,
 						// it is simply identifying to me that it's a leaf node.
-						String tempLetterAsciiInBinaryTextForm = String.valueOf(bitInput.read());
 
 						// now take that ascii (in string form) and get the LETTER which naturally corresponds to that 
 						// ascii number.
 
 						//convert the ascii of the single letter in string form to an int first..
-						int intVersionOfTheAscii = Integer.valueOf(tempLetterAsciiInBinaryTextForm);
 
-						char theActualLetterOfTheAsciiNum = (char) intVersionOfTheAscii;
+						char theActualLetterOfTheAsciiNum = (char) (bitInput.read());
+						
+						binaryTreeInArray.add(String.valueOf(theActualLetterOfTheAsciiNum));
 
-						// how do i get the letters in the right order.
+						// how do i get the letters in the right order. ??? Priority que??
 					}
-					else if(tempSingleBit == 0)
+					else if(tempSingleBit == 0) // or a null
 					{
-
+						// if its a 0, its a non leaf node
+						binaryTreeInArray.add("xx");
 					}
 				}
 			}
@@ -425,7 +419,6 @@ public class MyBinaryTree
 				// the magic number i.d is not what i need.
 			}
 
-
 			int theMagicNumber = 0;
 
 			do
@@ -433,10 +426,6 @@ public class MyBinaryTree
 				bitOutput.read(1,1);
 			}
 			while (theMagicNumber != 129);
-
-
-
-
 
 			int whatsInTheBinFileInIntForm =  bitInput.read(MyWordInHuffmanCodeForm.length());
 
@@ -463,7 +452,6 @@ public class MyBinaryTree
 				// the magic number i.d is not what i need.
 			}
 
-
 			//bitInput.read(howManyBits)
 
 			input.close();
@@ -474,6 +462,5 @@ public class MyBinaryTree
 
 	public void preOrderTraversal(ArrayList<String> binaryTreeInArray)
 	{
-
 	}
 }
