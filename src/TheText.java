@@ -194,7 +194,6 @@ public class TheText {
 	
 	public void compressTheBinaryOfTheWord(String theBinaryOfTheWord)
 	{
-		
 	}
 	
 	public static void bla()

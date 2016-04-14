@@ -12,9 +12,9 @@ public class MyBinaryTree
 {
 	// the binaryTreeInArray is the FIRST array, the flawed one, there will be two
 	ArrayList<String> binaryTreeInArray = new ArrayList<String>();
-	
+
 	public static Map<String, String> huffmanCodeMap = new HashMap<>();
-	
+
 	//public static Map<String, String> letterToHuffmanCodeMap = new HashMap<>();
 	static boolean reachEndOfTree = false;
 	String MyWordInHuffmanCodeForm;
@@ -294,15 +294,15 @@ public class MyBinaryTree
 				else if ((binaryTreeInArray.get(i)) == null) // if the string at that location IS NULL.
 				{
 					// the node i am currently at (place in the arraylist) IS NULL.
-					
+
 					// if im at a null node i have to write absolutely nothing and do nothing.
 					// Remember you only added nodes to IDENTIFY if a node has children or not.
-					
+
 					// MORE EXPLICIT EXPLANATION: ignore that null char and just keep looping....
-					
+
 				}
 				else //else the node i am at is a NON LEAF NODE and it is a NOT a null node (null nodes are always leaf
-					 // nodes anyway.
+					// nodes anyway.
 				{
 					bitOutput.write(1,0);
 					// its a 0 so just output the 0 and thats it.
@@ -311,7 +311,7 @@ public class MyBinaryTree
 
 			// give the global variable which is string, an empty string....
 			MyWordInHuffmanCodeForm = "";
-			
+
 			// the keys in the wordMap is the STRING (LETTER i.e a), the value is the huffman code in STRING form.
 			for(String key : huffmanCodeMap.keySet())
 			{
@@ -320,20 +320,21 @@ public class MyBinaryTree
 				// i.e my huffman code for the letter O is 10. (in my initial klmok test).
 
 				String huffmanCodeAtThatPointForThatLetter = huffmanCodeMap.get(key);
-				System.out.println("TESTTTTTTT + "  + huffmanCodeMap.get(key)); // just a test print out
+				System.out.println("TEST + "  + huffmanCodeMap.get(key)); // just a test print out
 
 				MyWordInHuffmanCodeForm = MyWordInHuffmanCodeForm.concat(huffmanCodeAtThatPointForThatLetter);
 			}
-			
-			// FINALLY after the magic no. and the arraylist in String form, the ACTUAL binary version of the word
-			// is actually compressed.
+
+			// FINALLY after the magic no. AND the size of the array AND the arraylist (binary) in String form, the ACTUAL binary version of the word
+			// is actually compressed, finally. this is straight format... go through the String, if the String variable
+			// is a 1 write a 1 to the bin file.
 			for(int i = 0 ; i < MyWordInHuffmanCodeForm.length() ; i++)
 			{
 				char c = MyWordInHuffmanCodeForm.charAt(i);
 
 				if (c == '1')
 				{
-					// if its a 1, write 1.
+					// if its a 1, write 1, this will write a 1 binary variable to the bin file.
 					bitOutput.write(1,1);
 				}
 				else if (c == '0')
@@ -342,39 +343,6 @@ public class MyBinaryTree
 					bitOutput.write(1,0);
 				}
 			} 
-
-			//finally its time to get the a header that goes after everything EXCEPT the compressed word and this
-			//header is going to be a LONG variable and this long variable says the NUMBER of actual binary bits
-			//in the compressed binary text which is in binary form. (Note: i am using this extra header instead of
-			// using any eof char etc.
-
-			//long theNumberOfBitsInTheCompressedText = MyWordInHuffmanCodeForm.length();
-
-			// now we have the num of bits in the binary compressed text.
-			// now change this theNumberOfBitsInTheCompressedText long value to binary form
-			// so i can put it into the final header.
-
-			//change long to int. (cast that long to an int).
-			//int theNumberOfBitsInTheCompressedTextinIntForm  = (int) theNumberOfBitsInTheCompressedText;
-
-		//	bitOutput.write(8,theNumberOfBitsInTheCompressedTextinIntForm);
-
-			//Final task...below I am actually putting the binary version of the actual word to be compressed to
-			// and write it to the file after the header(s).
-
-			/*for(int i = 0 ; i < MyWordInHuffmanCodeForm.length() ; i++)
-			{
-				char c = MyWordInHuffmanCodeForm.charAt(i);
-
-				if (c == '1')
-				{
-					bitOutput.write(1,1);
-				}
-				else if (c == '0')
-				{
-					bitOutput.write(1,0);
-				}
-			} */
 
 			output.close();
 			bitOutput.close();
@@ -385,20 +353,19 @@ public class MyBinaryTree
 
 	public void DecompressItOutOfFile()
 	{
-		// ok print out the array before the clear to test.
+		// ok print out the array before i clear the array (to test).
 		System.out.println("array before clear: " + binaryTreeInArray);
 
-		// makes it null.
+		// the below line makes the array null.
 		binaryTreeInArray = new ArrayList<String>();
 
 		// ok print out the array to make sure its cleared.
 		System.out.println("check if the array is truly cleared: " + binaryTreeInArray);
 
-		// and print it out again after i make out the binary tree again below...
+		// and print it out again after i make the binary tree again below...
 		try
 		{
 			InputStream input = new FileInputStream("compressed.bin");
-
 			// getting it out of the file and giving me a word
 
 			BitInputStream bitInput = new BitInputStream(input);
@@ -410,11 +377,9 @@ public class MyBinaryTree
 
 			if (bitInput.read() == 129)
 			{
-				//ok so thr magic no. is 129 YES, do proceed..
+				//ok so the magic no. is 129 YES, do proceed..
 
-				//ok so the first 8 bits IS the magic number... time to take in the actual tree
-
-				// ok now get the length of the tree in binary form
+				//ok so the first 8 bits IS the magic number... time to take in the actual tree's size in binary form.
 
 				// the below line gives me back int form of the binary 8 bits after the magic number in the 
 				// compressed file and the 8 bits after the magic number IS the size of the tree in binary form.
@@ -423,9 +388,6 @@ public class MyBinaryTree
 				// while the size of the binary tree is not reached yet.. keep going...
 				for(int i = 0 ; i < sizeOfTheBinaryTree ; i++)
 				{
-
-					// Slightly aside: does the read method AUTOMATICALLY read the NEXT bit
-					// number. <-- im 99% sure it does.
 					// ok we are going bit by bit.
 					int tempSingleBit = bitInput.read(1);
 
@@ -434,6 +396,7 @@ public class MyBinaryTree
 						// if its 1, its a leaf node so lets extract the letter of that leaf node
 
 						// when read has no param, it automatically reads 8 bits (i.e. 1 byte)....
+						
 						// String.valueOf() gets me the ascii version of the 8 bites (1 byte) after 
 						// the 1 bit has been read, the first 1 bit encountered is not counted,
 						// it is simply identifying to me that it's a leaf node.
@@ -443,12 +406,11 @@ public class MyBinaryTree
 						// ascii number.
 
 						//convert the ascii of the single letter in string form to an int first..
-
 						int intVersionOfTheAscii = Integer.valueOf(tempLetterAsciiInBinaryTextForm);
 
 						char theActualLetterOfTheAsciiNum = (char) intVersionOfTheAscii;
 
-// how do i get the letters in the right order.
+						// how do i get the letters in the right order.
 					}
 					else if(tempSingleBit == 0)
 					{
@@ -503,7 +465,6 @@ public class MyBinaryTree
 
 
 			//bitInput.read(howManyBits)
-
 
 			input.close();
 			bitInput.close();
