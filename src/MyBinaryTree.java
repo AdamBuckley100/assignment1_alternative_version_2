@@ -236,10 +236,10 @@ public class MyBinaryTree
 		for(int i = 0 ; i < binaryTreeInArray.size() ; i++)
 		{
 			String LettingCurrentlyAt = String.valueOf(myArrayListInString.charAt(i));
-			
+
 			myArrayListInString = myArrayListInString.concat(LettingCurrentlyAt);
 		}
-		
+
 		try
 		{
 			OutputStream output = new FileOutputStream("compressed.bin");
@@ -249,9 +249,12 @@ public class MyBinaryTree
 
 			// this is the magic number 129: put it at the start of the compressed binary text.
 			bitOutput.write(8, 129);
-			
+
 			bitOutput.write(8, binaryTreeInArray.size());
 
+			// now.. i am putting the tree as another header after the size of the tree (8 bit) header. 
+			// the tree will be in binary form so 1010101010 and the length of text of 101010 binary text of the
+			// tree is specified to me by the size of the binary tree header.
 			for(int i = 0 ; i < binaryTreeInArray.size() ; i++)
 			{
 				int leftChild = 2*i+1;
@@ -259,7 +262,7 @@ public class MyBinaryTree
 
 				if ((binaryTreeInArray.get(leftChild)) == null && (binaryTreeInArray.get(rightChild)) == null)
 				{
-					
+
 					// it a leaf node so a 1 (binary) must be written followed by the binary representation of the 
 					// letter at that node location in ASCII form.
 
@@ -317,7 +320,7 @@ public class MyBinaryTree
 			int theNumberOfBitsInTheCompressedTextinIntForm  = (int) theNumberOfBitsInTheCompressedText;
 
 			bitOutput.write(8,theNumberOfBitsInTheCompressedTextinIntForm);
-			
+
 			//Final task...below I am actually putting the binary version of the actual word to be compressed to
 			// and write it to the file after the header(s).
 
@@ -334,7 +337,7 @@ public class MyBinaryTree
 					bitOutput.write(1,0);
 				}
 			} 
-			
+
 			output.close();
 			bitOutput.close();
 		} catch (IOException e) {
@@ -344,49 +347,74 @@ public class MyBinaryTree
 
 	public void DecompressItOutOfFile()
 	{
-		// ok print out the array before the clear.
+		// ok print out the array before the clear to test.
+		System.out.println("array before clear: " + binaryTreeInArray);
 
 		// makes it null.
 		binaryTreeInArray = new ArrayList<String>();
-		
+
 		// ok print out the array to make sure its cleared.
+		System.out.println("check if the array is truly cleared: " + binaryTreeInArray);
+
 		// and print it out again after i make out the binary tree again below...
 		try
 		{
 			InputStream input = new FileInputStream("compressed.bin");
-			
+
 			// getting it out of the file and giving me a word
-			
+
 			BitInputStream bitInput = new BitInputStream(input);
-			
+
 			// how do i get the number of bits in line below... its not just the word to be decompressed
 			// in int form
-			
+
+			String AtWhatLocationIAmAtOfDecompression = "";
+
 			if (bitInput.read() == 129)
 			{
-				//proceed
-				
+				//ok so thr magic no. is 129 YES, do proceed..
+
 				//ok so the first 8 bits IS the magic number... time to take in the actual tree
-				
+
 				// ok now get the length of the tree in binary form
-				
-				// the below method gives me back int form of the binary 8 bits after the magic number in the 
-				// compressed file.
+
+				// the below line gives me back int form of the binary 8 bits after the magic number in the 
+				// compressed file and the 8 bits after the magic number IS the size of the tree in binary form.
 				int sizeOfTheBinaryTree = bitInput.read();
-				
+
+				// while the size of the binary tree is not reached yet.. keep going...
 				for(int i = 0 ; i < sizeOfTheBinaryTree ; i++)
 				{
-					// does the read method AUTOMATICALLY read the NEXT bit number. <-- no how would that make sense???
+
+					// Slightly aside: does the read method AUTOMATICALLY read the NEXT bit
+					// number. <-- im 99% sure it does.
+					// ok we are going bit by bit.
 					int tempSingleBit = bitInput.read(1);
-					
+
 					if(tempSingleBit == 1)
 					{
-						// ok it's a 
-						
+						// if its 1, its a leaf node so lets extract the letter of that leaf node
+
+						// when read has no param, it automatically reads 8 bits (i.e. 1 byte)....
+						// String.valueOf() gets me the ascii version of the 8 bites (1 byte) after 
+						// the 1 bit has been read, the first 1 bit encountered is not counted,
+						// it is simply identifying to me that it's a leaf node.
+						String tempLetterAsciiInBinaryTextForm = String.valueOf(bitInput.read());
+
+						// now take that ascii (in string form) and get the LETTER which naturally corresponds to that 
+						// ascii number.
+
+						//convert the ascii of the single letter in string form to an int first..
+
+						int intVersionOfTheAscii = Integer.valueOf(tempLetterAsciiInBinaryTextForm);
+
+						char theActualLetterOfTheAsciiNum = (char) intVersionOfTheAscii;
+
+// how do i get the letters in the right order.
 					}
 					else if(tempSingleBit == 0)
 					{
-						
+
 					}
 				}
 			}
@@ -396,44 +424,34 @@ public class MyBinaryTree
 				// decompress this whole binary file because i am not programmed to decompresser it because
 				// the magic number i.d is not what i need.
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
+
 			int theMagicNumber = 0;
-			
+
 			do
 			{
 				bitOutput.read(1,1);
 			}
 			while (theMagicNumber != 129);
-			
-			
-			
-			
-			
+
+
+
+
+
 			int whatsInTheBinFileInIntForm =  bitInput.read(MyWordInHuffmanCodeForm.length());
-			
+
 			System.out.println("DECOMPRESS IS" + whatsInTheBinFileInIntForm);
-			
+
 			// so I will assume i'm reading it from LEFT TO RIGHT.
-			
+
 			//first check for magic number which is 129 (8 bit size)..
-			
+
 			int thePotentialMagicNumberInIntForm = bitInput.read(8);
-			
+
 			//convert those binary bits which are in int for to a string
-			
+
 			String thePotentialMagicNumberInStringForm = Integer.toString(thePotentialMagicNumberInIntForm);
-			
+
 			if (thePotentialMagicNumberInStringForm == "10000001")
 			{
 				//it is the magic number.... proceed
@@ -445,14 +463,13 @@ public class MyBinaryTree
 				// the magic number i.d is not what i need.
 			}
 
-			
+
 			//bitInput.read(howManyBits)
-			
-			
+
+
 			input.close();
 			bitInput.close();
 		} catch (IOException e) {
-
 		}
 	}
 
@@ -460,8 +477,4 @@ public class MyBinaryTree
 	{
 
 	}
-
-	//	public void myVersionOfRead(String path)
-	//{	
-	//}
 }
