@@ -74,13 +74,13 @@ public class TheText {
 		// in the traverse the tree method is where my huffmanCodeMap is being populated.
 		// i'm inputting 0
 		tree.traverseTheTree(0, "");
-		
+
 		tree.printOutTheHuffMap();
-		
+
 		tree.MakeStringMyHuffmanCode();
-		
+
 		System.out.print("START!" + tree.MyWordInHuffmanCodeForm + "END!");
-		
+
 		tree.CompressItIntoFile(tree.binaryTreeInArray);
 		tree.DecompressItOutOfFile();
 	}
@@ -157,7 +157,7 @@ public class TheText {
 			wordMap.remove(secondLastMinimumKey);
 
 			//System.out.println("TEST:" + "PASSED IN PARAM IS:" + secondLastMinimumKey);
-			
+
 			//treemap maps a LETTER (string) to its ACTUAl MyBinaryTree OBJECT.
 			//eventually treeMap will have just ONE thing in it (string to object mapping).
 			//so put into treeMap the combined LETTERS (single string variable) and the ACTUAL MyBinaryTree OBJECT
@@ -191,11 +191,11 @@ public class TheText {
 		int realHeight = height+1;
 		return realHeight;
 	}
-	
+
 	public void compressTheBinaryOfTheWord(String theBinaryOfTheWord)
 	{
 	}
-	
+
 	public static void bla()
 	{
 		char c = 'e';

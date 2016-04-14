@@ -91,9 +91,10 @@ public class MyBinaryTree
 		return binaryTreeInArray;
 	}
 
+	// the traverseTheTree method is what populates the huffmanCodeMap.
 	// Traverse the tree to produce a table of characters with their Huffman code.
-	// this is a preorder taverse... this method is fully recursive and ends completely the first time
-	// the first if OR the second if is NOT fulfilled.
+	// this is a pre-order taversal... this method is fully recursive and ends completely if the first OR the
+	// second if is NOT fulfilled.
 
 	// This method is a RECURSIVE method, that is the only reason i have the String input called "prefix"
 	//the reason i have prefix is so that i CAN keep a running total so to speak of my
@@ -368,8 +369,6 @@ public class MyBinaryTree
 			// how do i get the number of bits in line below... its not just the word to be decompressed
 			// in int form
 
-			String AtWhatLocationIAmAtOfDecompression = "";
-
 			if (bitInput.read() == 129)
 			{
 				//ok so the magic no. is 129 YES, do proceed..
@@ -389,7 +388,7 @@ public class MyBinaryTree
 					if(tempSingleBit == 1)
 					{
 						// if its 1, its a leaf node so lets extract the letter of that leaf node
-						
+
 						// String.valueOf() gets me the ascii version of the 8 bites (1 byte) after 
 						// the 1 bit has been read, the first 1 bit encountered is not counted,
 						// it is simply identifying to me that it's a leaf node.
@@ -400,14 +399,14 @@ public class MyBinaryTree
 						//convert the ascii of the single letter in string form to an int first..
 
 						char theActualLetterOfTheAsciiNum = (char) (bitInput.read());
-						
+
 						binaryTreeInArray.add(String.valueOf(theActualLetterOfTheAsciiNum));
 
 						// how do i get the letters in the right order. ??? Priority que??
 					}
-					else if(tempSingleBit == 0) // or a null
+					else if(tempSingleBit == 0) // or a null TO BE FIXED DIFFERENCIATE 0 and nulls from the original array
 					{
-						// if its a 0, its a non leaf node
+						// if its a 0, its a non leaf node, just add to the array list a NON-single character String.
 						binaryTreeInArray.add("xx");
 					}
 				}
@@ -417,43 +416,31 @@ public class MyBinaryTree
 				// its not the magic number........ the decompresser program is now declaring "hey i cannot 
 				// decompress this whole binary file because i am not programmed to decompresser it because
 				// the magic number i.d is not what i need.
+				
+				// give back to the user in text that you don't decompress it.
 			}
-
-			int theMagicNumber = 0;
-
-			do
-			{
-				bitOutput.read(1,1);
-			}
-			while (theMagicNumber != 129);
-
-			int whatsInTheBinFileInIntForm =  bitInput.read(MyWordInHuffmanCodeForm.length());
-
-			System.out.println("DECOMPRESS IS" + whatsInTheBinFileInIntForm);
-
-			// so I will assume i'm reading it from LEFT TO RIGHT.
-
-			//first check for magic number which is 129 (8 bit size)..
-
-			int thePotentialMagicNumberInIntForm = bitInput.read(8);
-
-			//convert those binary bits which are in int for to a string
-
-			String thePotentialMagicNumberInStringForm = Integer.toString(thePotentialMagicNumberInIntForm);
-
-			if (thePotentialMagicNumberInStringForm == "10000001")
-			{
-				//it is the magic number.... proceed
-			}
-			else
-			{
-				//its not the magic number........ the decompresser program is now declaring "hey i cannot 
-				// decompress this whole binary file because i am not programmed to decompresser it because
-				// the magic number i.d is not what i need.
-			}
-
-			//bitInput.read(howManyBits)
-
+			
+			// now clear the huffmanCodeMap and repopulate.
+			//first clear it (line below)...
+			huffmanCodeMap.clear();
+		
+			//now repopulate it using the newly populated array list (which was cleared before it was populated).
+			
+			//call travrse the tree
+			
+			// in the traverse the tree method is where my huffmanCodeMap is being populated.
+			// i'm inputting 0
+			TheText.buildForests();
+			
+			traverseTheTree(0, "");
+			
+			// so the huffmanCodeMap is correctly populated, now put the letters in order....
+			
+			// in order to put the word in the correct order, i must look at the compressed
+			
+			// 1) build the binary tree.
+			// 2) 
+			
 			input.close();
 			bitInput.close();
 		} catch (IOException e) {

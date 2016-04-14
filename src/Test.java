@@ -38,7 +38,7 @@ import java.io.FileNotFoundException;
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void DecompressItOutOfFile()
 	{
 		try {
@@ -47,7 +47,7 @@ import java.io.FileNotFoundException;
 			BitInputStream bitInput = new BitInputStream("compressed.bin");
 
 			read(.length());
-			
+
 			bitOutput.write(8, 129);
 
 			bitOutput.write(1, 1);
