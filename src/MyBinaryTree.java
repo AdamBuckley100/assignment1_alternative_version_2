@@ -27,6 +27,11 @@ public class MyBinaryTree
 	{
 		binaryTreeInArray.add(key);
 	}
+	
+	public MyBinaryTree(ArrayList<String> list)
+	{
+		binaryTreeInArray = list;
+	}
 
 	// returns true if it IS all nulls, returns false if it is *NOT* all nulls.
 	public boolean isAllNulls(ArrayList<String> list)
@@ -420,26 +425,30 @@ public class MyBinaryTree
 				// give back to the user in text that you don't decompress it.
 			}
 			
-			// now clear the huffmanCodeMap and repopulate.
-			//first clear it (line below)...
-			huffmanCodeMap.clear();
-		
-			//now repopulate it using the newly populated array list (which was cleared before it was populated).
+			//get the xx's in the array list and change them to nulls.
 			
-			//call travrse the tree
+			for (int i = 0 ; i < binaryTreeInArray.size(); i++)
+			{
+				if (binaryTreeInArray.get(i) == "xx")
+				{
+					String bla = null;
+					binaryTreeInArray[i] = null;
+				}
+			}
 			
-			// in the traverse the tree method is where my huffmanCodeMap is being populated.
-			// i'm inputting 0
-			TheText.buildForests();
 			
-			traverseTheTree(0, "");
 			
-			// so the huffmanCodeMap is correctly populated, now put the letters in order....
 			
-			// in order to put the word in the correct order, i must look at the compressed
 			
-			// 1) build the binary tree.
-			// 2) 
+			
+			
+			
+			
+			
+			
+			
+			tree.traverseTheTree(0, "");
+			
 			
 			input.close();
 			bitInput.close();
