@@ -304,22 +304,26 @@ public class MyBinaryTree
 
 			// give the global variable which is string, an empty string....
 			MyWordInHuffmanCodeForm = "";
-
-			// the keys in the wordMap is the STRING (LETTER i.e a), the value is the huffman code in STRING form.
-			for(String key : huffmanCodeMap.keySet())
+			
+			for(int i = 0 ; i < TheText.theWord.length() ; i++)
 			{
-				// below: get the value of key we are currently looking at
-				// (remember value: is just the huffman code for that variable
-				// i.e my huffman code for the letter O is 10. (in my initial klmok test).
-
-				String huffmanCodeAtThatPointForThatLetter = huffmanCodeMap.get(key);
-				System.out.println("TEST + "  + huffmanCodeMap.get(key)); // just a test print out
-
-				MyWordInHuffmanCodeForm = MyWordInHuffmanCodeForm.concat(huffmanCodeAtThatPointForThatLetter);
+				char theLetterAtThatPosition = TheText.theWord.charAt(0);
+				
+				for(String key : huffmanCodeMap.keySet())
+				{
+					if (String.valueOf(theLetterAtThatPosition) == key)
+					{
+						// .get(key) gets me the value at that place in the huffmancodemap (yes i realize hash maps are UNSORTED).
+						MyWordInHuffmanCodeForm = MyWordInHuffmanCodeForm.concat(huffmanCodeMap.get(key)); //
+					}
+				}
 			}
-
+			
+			// now myWordInHuffmanForm is the huffman binary code in order.
+			MyWordInHuffmanCodeForm = "";
+			
 			// FINALLY after the magic no. AND the size of the array AND the arraylist (binary) in String form, the ACTUAL binary version of the word
-			// is actually compressed, finally. this is straight format... go through the String, if the String variable
+			// is actually compressed, finally. this is straight forword... go through the String, if the String variable
 			// is a 1 write a 1 to the bin file.
 			for(int i = 0 ; i < MyWordInHuffmanCodeForm.length() ; i++)
 			{
@@ -335,8 +339,7 @@ public class MyBinaryTree
 					// if it's a 0, write 0.
 					bitOutput.write(1,0);
 				}
-			} 
-
+			}
 			output.close();
 			bitOutput.close();
 		} catch (IOException e) {
