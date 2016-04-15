@@ -220,7 +220,6 @@ public class MyBinaryTree
 		}
 	}
 
-
 	public void MakeStringMyHuffmanCode()
 	{	
 		MyWordInHuffmanCodeForm = "";
@@ -354,6 +353,9 @@ public class MyBinaryTree
 					bitOutput.write(1,0);
 				}
 			}
+			
+			//padding
+			bitOutput.write(7,0);
 			output.close();
 			bitOutput.close();
 		} catch (IOException e) {
@@ -461,23 +463,35 @@ public class MyBinaryTree
 				traverseTheTree(0, "");
 				
 				// ok so the huffmanCodeMap is populated appropriately.
-				
-				for (int i = 0 ; i < ; i++)
-				{
-					
+
+				String MyWordInRealLet = "";
+				String tempBit;
+				String tempBitSeveralLettersPossible = ""; // running total type thing
+
+				// read until -1 is returned, which indicates that theres no more to read.
+				while (!(tempBit = String.valueOf(bitInput.read(1))).equals(String.valueOf(-1)))
+				{	
+					tempBitSeveralLettersPossible = tempBitSeveralLettersPossible.concat(tempBit);
+					// check huffman value to see if the running-total type variable is equal to some binary form string thats
+					// in the huffmanCodeMap hashmap.
+					for(String key : huffmanCodeMap.keySet())
+					{
+						if (tempBitSeveralLettersPossible.equals(huffmanCodeMap.get(key)))
+						{
+							// its in the huffmancodemap so add it to the final string and reset tempbit.
+							MyWordInRealLet = MyWordInRealLet.concat(key);
+
+							//reser tempBitInString
+							tempBitSeveralLettersPossible = "";
+						}
+					}
 				}
 				
-				
-				
-				
-				
+				System.out.println(MyWordInRealLet);
 				
 				// now all the headers have been decompressed and now i have to decompress the actual word which
 				// is right now in binary huffman code format
-				// i get the order through the decompressing of the word which was compressed
-				
-				
-				bitInput.read();
+				// i get the order through the decompressing of the word which was compressed	
 			}
 			else
 			{
@@ -494,6 +508,8 @@ public class MyBinaryTree
 		}
 	}
 
+	// ASk if this is right: i need to do a preorder traversal to get order and i'm getting order by getting the weight of 
+	// nodes.......... AND IF A NODE OF WEIGHT NOT 1 HAS a single character then that charactar exists twice
 	public void preOrderTraversal(ArrayList<String> binaryTreeInArray)
 	{
 	}
