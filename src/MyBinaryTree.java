@@ -13,6 +13,7 @@ public class MyBinaryTree
 	// the binaryTreeInArray is the FIRST array, the flawed one, there will be two
 	ArrayList<String> binaryTreeInArray = new ArrayList<String>();
 
+	// (below) maps string to string.. maps single letters to the huffman code for that letter in binary.
 	public static Map<String, String> huffmanCodeMap = new HashMap<>();
 
 	//public static Map<String, String> letterToHuffmanCodeMap = new HashMap<>();
@@ -27,7 +28,7 @@ public class MyBinaryTree
 	{
 		binaryTreeInArray.add(key);
 	}
-	
+
 	public MyBinaryTree(ArrayList<String> list)
 	{
 		binaryTreeInArray = list;
@@ -108,34 +109,21 @@ public class MyBinaryTree
 		if (index < binaryTreeInArray.size())
 		{
 			String letterValue = binaryTreeInArray.get(index);
-			if (letterValue != null)
+			if (letterValue.length() == 1) // if it has a length one one I.E is it a SINGLE LETTER i.e is it a LEAF node.
 			{
-				// if it has a length one one I.E is it a SINGLE LETTER i.e is it a LEAF node.
-				if (binaryTreeInArray.get(index).length() == 1)
-				{
-					// ok so it's defintly a single letter, time to put it into the map
-					System.out.println(letterValue + " " +prefix);
-					huffmanCodeMap.put(binaryTreeInArray.get(index), prefix);
+				// ok so it's defintly a single letter, time to put it into the map
+				System.out.println(letterValue + " " +prefix);
+				huffmanCodeMap.put(binaryTreeInArray.get(index), prefix);
 
-					//huffmanCodeMap.put(binaryTreeInArray.get(index), indexHuffmanRunningTotal);
+				//huffmanCodeMap.put(binaryTreeInArray.get(index), indexHuffmanRunningTotal);
 
-					// reset it...
-					//indexHuffmanRunningTotal = "";
-				}
-				else
-				{
-					System.out.println(letterValue);	
-
-					// if we get into this else, it is not a leaf node, the letter is NOT a single character
-					// indexLeft is the non-leaf node's LEFT child.
-					int indexLeft = 2 * index + 1;
-
-					// indexLeft is the non-leaf node's RIGHT child.
-					int indexRight = 2 * index + 2;
-
-					traverseTheTree(indexLeft, prefix + "0");
-					traverseTheTree(indexRight, prefix + "1");
-				}
+				// reset it...
+				//indexHuffmanRunningTotal = "";
+			}
+			else // I assume if it goes into this else that it is a null because it is not a leaf node (has string of length 1 char)
+				// and it is not a non-leaf node which has children because non leaf nods that dont have parents are xx always.
+			{
+				// do nothing just keep traversing through the size of the array.
 			}
 		}
 	}
@@ -303,9 +291,8 @@ public class MyBinaryTree
 					bitOutput.write(1,1);
 					bitOutput.write(1,0);
 					bitOutput.write(1,1);
-					
+
 					//trying to put 101
-					
 				}
 				else //else the node i am at is a NON LEAF NODE and it is a NOT a null node (null nodes are always leaf
 					// nodes anyway.
@@ -420,78 +407,63 @@ public class MyBinaryTree
 						binaryTreeInArray.add("xx");
 					}
 				}
-				
+
 				//step 2
-				
+
 				for (int i = 0 ; i < binaryTreeInArray.size(); i++)
 				{
 					// if the node has within it, a string which is 1 character long.
 					if (binaryTreeInArray.get(i).length() == 1)
 					{
 						// set its children to null
-						
+
 						int leftChildOfCurrentArrayPosition = (2 * i) + 1;
 						int rightChildOfCurrentArrayPosition = (2 * i) + 2;
-						
+
 						binaryTreeInArray.set(leftChildOfCurrentArrayPosition, null);
 						binaryTreeInArray.set(rightChildOfCurrentArrayPosition, null);
 					}
-					// (below) null nodes in the tree (in my arraylist) naturally have children which are null so..
-					else if (binaryTreeInArray.get(i) == null)
+					else if (binaryTreeInArray.get(i) == null) // (below) null nodes in the tree (in my arraylist) naturally have children which are null so..
 					{
 						int leftChildOfCurrentArrayPosition = (2 * i) + 1;
 						int rightChildOfCurrentArrayPosition = (2 * i) + 2;
-						
+
 						binaryTreeInArray.set(leftChildOfCurrentArrayPosition, null);
 						binaryTreeInArray.set(rightChildOfCurrentArrayPosition, null);
 					}
 				}
 				
-				if ()
-				{
-				}
+				// now my binaryTreeInArray arraylist is set up in a way where the non-leaf nodes are xx, the leaf
+				// nodes are their letter and the null nodes are null.
+				
+				// clear the huffmanCodeMap hash map
+				
+				huffmanCodeMap.clear();
+				
+				// the traverse the tree method will populate the huffmanCodeMap again correctly (decompression side).
+				traverseTheTree(0, "");
+				
+				// ok so the huffmanCodeMap is populated appropriately.
+				
+				// now all the headers have been decompressed and now i have to decompress the actual word which
+				// is right now in binary huffman code format
+				// i get the order through the decompressing of the word which was compressed
 				
 				
-				
-				
-				
-
-				//get the xx's in the array list and change them to nulls.
-				
-						
-						String bla = null;
-						// how do you assign a string variable in a string array null?
-						binaryTreeInArray[i] = null;
-					}
-				}
-				
-
-				
-				tree.traverseTheTree(0, "");
-				
-				
-				
-				
-				
-				
-				
+				bitInput.read();
 			}
 			else
 			{
 				// its not the magic number........ the decompresser program is now declaring "hey i cannot 
 				// decompress this whole binary file because i am not programmed to decompresser it because
 				// the magic number i.d is not what i need.
-				
+
 				// give back to the user in text that you don't decompress it.
 			}
-			
-			for (int i = 0 ; i < binaryTreeInArray.size(); i++)
-			{
-			
-			
 			input.close();
 			bitInput.close();
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 		}
 	}
 

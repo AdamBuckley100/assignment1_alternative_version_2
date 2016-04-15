@@ -23,7 +23,6 @@ public class TheText {
 	public static String theWord;
 
 	public static void main(String[] args) {
-
 		try {
 			File file = new File("resources/mississipiriver.txt");
 
@@ -124,7 +123,6 @@ public class TheText {
 					minimumKey = key;
 				}
 			}
-
 			// going through all the keys (letters) again...
 			for(String key : wordMap.keySet())
 			{
@@ -142,7 +140,6 @@ public class TheText {
 					secondLastMinimumKey = key;
 				}
 			}
-
 			// the new LETTER COMBO is the LETTER of the minimum key and the LETTER of the second late minimum key
 			// string concatenated.
 			String theNewStringKey = minimumKey + secondLastMinimumKey;
