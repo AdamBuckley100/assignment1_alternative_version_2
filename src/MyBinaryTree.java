@@ -300,7 +300,12 @@ public class MyBinaryTree
 					// Remember you only added nodes to IDENTIFY if a node has children or not.
 
 					// MORE EXPLICIT EXPLANATION: ignore that null char and just keep looping....
+					bitOutput.write(1,1);
 					bitOutput.write(1,0);
+					bitOutput.write(1,1);
+					
+					//trying to put 101
+					
 				}
 				else //else the node i am at is a NON LEAF NODE and it is a NOT a null node (null nodes are always leaf
 					// nodes anyway.
@@ -415,6 +420,61 @@ public class MyBinaryTree
 						binaryTreeInArray.add("xx");
 					}
 				}
+				
+				//step 2
+				
+				for (int i = 0 ; i < binaryTreeInArray.size(); i++)
+				{
+					// if the node has within it, a string which is 1 character long.
+					if (binaryTreeInArray.get(i).length() == 1)
+					{
+						// set its children to null
+						
+						int leftChildOfCurrentArrayPosition = (2 * i) + 1;
+						int rightChildOfCurrentArrayPosition = (2 * i) + 2;
+						
+						binaryTreeInArray.set(leftChildOfCurrentArrayPosition, null);
+						binaryTreeInArray.set(rightChildOfCurrentArrayPosition, null);
+					}
+					// (below) null nodes in the tree (in my arraylist) naturally have children which are null so..
+					else if (binaryTreeInArray.get(i) == null)
+					{
+						int leftChildOfCurrentArrayPosition = (2 * i) + 1;
+						int rightChildOfCurrentArrayPosition = (2 * i) + 2;
+						
+						binaryTreeInArray.set(leftChildOfCurrentArrayPosition, null);
+						binaryTreeInArray.set(rightChildOfCurrentArrayPosition, null);
+					}
+				}
+				
+				if ()
+				{
+				}
+				
+				
+				
+				
+				
+
+				//get the xx's in the array list and change them to nulls.
+				
+						
+						String bla = null;
+						// how do you assign a string variable in a string array null?
+						binaryTreeInArray[i] = null;
+					}
+				}
+				
+
+				
+				tree.traverseTheTree(0, "");
+				
+				
+				
+				
+				
+				
+				
 			}
 			else
 			{
@@ -425,29 +485,8 @@ public class MyBinaryTree
 				// give back to the user in text that you don't decompress it.
 			}
 			
-			//get the xx's in the array list and change them to nulls.
-			
 			for (int i = 0 ; i < binaryTreeInArray.size(); i++)
 			{
-				if (binaryTreeInArray.get(i) == "xx")
-				{
-					String bla = null;
-					binaryTreeInArray[i] = null;
-				}
-			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			tree.traverseTheTree(0, "");
 			
 			
 			input.close();
