@@ -109,24 +109,38 @@ public class MyBinaryTree
 		if (index < binaryTreeInArray.size())
 		{
 			String letterValue = binaryTreeInArray.get(index);
-			if (letterValue.length() == 1) // if it has a length one one I.E is it a SINGLE LETTER i.e is it a LEAF node.
+			if (letterValue != null)
 			{
-				// ok so it's defintly a single letter, time to put it into the map
-				System.out.println(letterValue + " " +prefix);
-				huffmanCodeMap.put(binaryTreeInArray.get(index), prefix);
+				// if it has a length one one I.E is it a SINGLE LETTER i.e is it a LEAF node.
+				if (binaryTreeInArray.get(index).length() == 1)
+				{
+					// ok so it's defintly a single letter, time to put it into the map
+					System.out.println(letterValue + " " +prefix);
+					huffmanCodeMap.put(binaryTreeInArray.get(index), prefix);
 
-				//huffmanCodeMap.put(binaryTreeInArray.get(index), indexHuffmanRunningTotal);
+					//huffmanCodeMap.put(binaryTreeInArray.get(index), indexHuffmanRunningTotal);
 
-				// reset it...
-				//indexHuffmanRunningTotal = "";
-			}
-			else // I assume if it goes into this else that it is a null because it is not a leaf node (has string of length 1 char)
-				// and it is not a non-leaf node which has children because non leaf nods that dont have parents are xx always.
-			{
-				// do nothing just keep traversing through the size of the array.
+					// reset it...
+					//indexHuffmanRunningTotal = "";
+				}
+				else
+				{
+					System.out.println(letterValue);	
+
+					// if we get into this else, it is not a leaf node, the letter is NOT a single character
+					// indexLeft is the non-leaf node's LEFT child.
+					int indexLeft = 2 * index + 1;
+
+					// indexLeft is the non-leaf node's RIGHT child.
+					int indexRight = 2 * index + 2;
+
+					traverseTheTree(indexLeft, prefix + "0");
+					traverseTheTree(indexRight, prefix + "1");
+				}
 			}
 		}
 	}
+
 
 	public void printOutTheHuffMap()
 	{
@@ -447,6 +461,16 @@ public class MyBinaryTree
 				traverseTheTree(0, "");
 				
 				// ok so the huffmanCodeMap is populated appropriately.
+				
+				for (int i = 0 ; i < ; i++)
+				{
+					
+				}
+				
+				
+				
+				
+				
 				
 				// now all the headers have been decompressed and now i have to decompress the actual word which
 				// is right now in binary huffman code format
