@@ -8,9 +8,12 @@ import java.util.Map;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+/**
+ * @author Adam Buckley
+ */
+
 public class MyBinaryTree
 {
-	// the binaryTreeInArray is the FIRST array, the flawed one, there will be two
 	ArrayList<String> binaryTreeInArray = new ArrayList<String>();
 
 	// (below) maps string to string.. maps single letters to the huffman code for that letter in binary.
@@ -20,7 +23,6 @@ public class MyBinaryTree
 	static boolean reachEndOfTree = false;
 	String MyWordInHuffmanCodeForm;
 	String myArrayListInString =  "";
-
 	int traverseCount;
 
 	// CONSTRUCTOR USED IN MERGE METHOD.
@@ -141,7 +143,6 @@ public class MyBinaryTree
 		}
 	}
 
-
 	public void printOutTheHuffMap()
 	{
 		System.out.println("PRINT OUT MAP:");
@@ -149,35 +150,6 @@ public class MyBinaryTree
 		{
 			System.out.println("NEW MAP ENTRY ------------------:");
 			System.out.println(key + " " + huffmanCodeMap.get(key));
-		}
-	}
-
-	// uncompression - unhuffing - decompression
-	public void unhuffingDecompressionProgram()
-	{
-
-	}
-
-	public void askIfThereIsARightNode(int aSiftedUpIndex)
-	{
-		// 2k + 2 is the right child.
-		// indexRight means right child.
-		int indexRight = 2 * aSiftedUpIndex + 2;
-
-		String theLetterOfSiftedUp = binaryTreeInArray.get(aSiftedUpIndex);
-
-		//System.out.println(val);
-
-
-		// if the letter at index's place in array is not null.
-		// talking about the right child... does the right child exist or not?
-		if (binaryTreeInArray.get(indexRight) != null)
-		{
-			//System.out.println(a);
-			//traverseTheTree(indexRight);
-		}
-		else
-		{
 		}
 	}
 
@@ -317,11 +289,11 @@ public class MyBinaryTree
 
 			// give the global variable which is string, an empty string....
 			MyWordInHuffmanCodeForm = "";
-			
+
 			for(int i = 0 ; i < TheText.theWord.length() ; i++)
 			{
-				char theLetterAtThatPosition = TheText.theWord.charAt(0);
-				
+				char theLetterAtThatPosition = TheText.theWord.charAt(i);
+
 				for(String key : huffmanCodeMap.keySet())
 				{
 					if (String.valueOf(theLetterAtThatPosition) == key)
@@ -331,10 +303,10 @@ public class MyBinaryTree
 					}
 				}
 			}
-			
+
 			// now myWordInHuffmanForm is the huffman binary code in order.
-			MyWordInHuffmanCodeForm = "";
-			
+		//MyWordInHuffmanCodeForm = "";
+
 			// FINALLY after the magic no. AND the size of the array AND the arraylist (binary) in String form, the ACTUAL binary version of the word
 			// is actually compressed, finally. this is straight forword... go through the String, if the String variable
 			// is a 1 write a 1 to the bin file.
@@ -353,7 +325,6 @@ public class MyBinaryTree
 					bitOutput.write(1,0);
 				}
 			}
-			
 			//padding
 			bitOutput.write(7,0);
 			output.close();
@@ -451,17 +422,16 @@ public class MyBinaryTree
 						binaryTreeInArray.set(rightChildOfCurrentArrayPosition, null);
 					}
 				}
-				
 				// now my binaryTreeInArray arraylist is set up in a way where the non-leaf nodes are xx, the leaf
 				// nodes are their letter and the null nodes are null.
-				
+
 				// clear the huffmanCodeMap hash map
-				
+
 				huffmanCodeMap.clear();
-				
+
 				// the traverse the tree method will populate the huffmanCodeMap again correctly (decompression side).
 				traverseTheTree(0, "");
-				
+
 				// ok so the huffmanCodeMap is populated appropriately.
 
 				String MyWordInRealLet = "";
@@ -486,9 +456,8 @@ public class MyBinaryTree
 						}
 					}
 				}
-				
 				System.out.println(MyWordInRealLet);
-				
+
 				// now all the headers have been decompressed and now i have to decompress the actual word which
 				// is right now in binary huffman code format
 				// i get the order through the decompressing of the word which was compressed	
@@ -506,11 +475,5 @@ public class MyBinaryTree
 		} catch (IOException e)
 		{
 		}
-	}
-
-	// ASk if this is right: i need to do a preorder traversal to get order and i'm getting order by getting the weight of 
-	// nodes.......... AND IF A NODE OF WEIGHT NOT 1 HAS a single character then that charactar exists twice
-	public void preOrderTraversal(ArrayList<String> binaryTreeInArray)
-	{
 	}
 }

@@ -2,15 +2,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
  * @author Adam Buckley
  * This is a class that takes in a .txt file (for the moment)s
- * and is ftesting if I can turn the simply first count the instances of
+ * and is testing if I can turn the simply first count the instances of
  * letters in a an ASCII word.
  */
 
@@ -68,7 +66,6 @@ public class TheText {
 		MyBinaryTree tree = buildBinaryTreeFromMap();
 
 		tree.printTheArrayList();
-		bla();
 
 		// in the traverse the tree method is where my huffmanCodeMap is being populated.
 		// i'm inputting 0
@@ -187,16 +184,5 @@ public class TheText {
 
 		int realHeight = height+1;
 		return realHeight;
-	}
-
-	public void compressTheBinaryOfTheWord(String theBinaryOfTheWord)
-	{
-	}
-
-	public static void bla()
-	{
-		char c = 'e';
-		int code = (int) c;
-		System.out.println("kkkkkkkkkkkkk" + code);
 	}
 }
